@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "620484351182",
+    "project_id": "drink-it-now-pare-8c79a",
+    "storage_bucket": "drink-it-now-pare-8c79a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:620484351182:android:8b7c08844e6ee06e392c9f",
+        "android_client_info": {
+          "package_name": "com.example.drinkitnowpare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "620484351182-4kij86lnbd0mau0lmhv9jgjfcg69gq2q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzJTGPrgsW0NQS0WfBN3d3LpE2jyPjaNk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "620484351182-4kij86lnbd0mau0lmhv9jgjfcg69gq2q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:620484351182:android:75809f2581658e9b392c9f",
+        "android_client_info": {
+          "package_name": "com.example.sinco_v2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "620484351182-4kij86lnbd0mau0lmhv9jgjfcg69gq2q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzJTGPrgsW0NQS0WfBN3d3LpE2jyPjaNk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "620484351182-4kij86lnbd0mau0lmhv9jgjfcg69gq2q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
