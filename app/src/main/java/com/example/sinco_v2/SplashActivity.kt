@@ -15,12 +15,12 @@ class SplashActivity : AppCompatActivity() {
         val user = auth.currentUser
         val userId = user?.uid
 
-        if (userId == null){ // user is not logged in
-            val intent = Intent(this, MainActivity::class.java)
+        if (userId != null){ // user is logged in
+            val intent = Intent(this, ManagerActivity::class.java)
             startActivity(intent)
             finish()
         } else {
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, ManagerActivity::class.java) // LOGIN ACTIVITY
             startActivity(intent)
             finish()
         }
