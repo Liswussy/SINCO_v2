@@ -37,8 +37,8 @@
     <!--Product-->
     <ImageButton
         android:id="@+id/product_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
         android:src="@drawable/baseline_home_24"
@@ -59,8 +59,8 @@
 
     <ImageButton
         android:id="@+id/supplier_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
         android:src="@drawable/baseline_home_24"
@@ -82,8 +82,8 @@
 
     <ImageButton
         android:id="@+id/employee_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
         android:src="@drawable/baseline_home_24"
@@ -106,6 +106,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:text="Sales and Employee Status:"
         android:textColor="@color/white_primary"
         android:textSize="20sp"
@@ -116,6 +117,7 @@
         android:id="@+id/linearlayout2"
         android:layout_width="match_parent"
         android:layout_height="170dp"
+        android:layout_marginTop="20dp"
         android:background="@color/yellow_primary"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -189,16 +191,94 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/textview3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
         android:text="Inventory Overview"
-        android:textSize="18sp"
         android:textColor="@color/white_primary"
-        app:layout_constraintTop_toBottomOf="@id/linearlayout2"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-
+        app:layout_constraintTop_toBottomOf="@id/linearlayout2"
 
         />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/white_primary"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textview3">
+
+        <!-- Header Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/yellow_primary"
+            android:elevation="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingStart="10dp"
+                android:text="Product Name"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:text="Quantity"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <!-- Item Row -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <HorizontalScrollView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/black_primary"
+                    android:text="Product 1 with a Long Name" />
+            </HorizontalScrollView>
+
+            <HorizontalScrollView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="5dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/black_primary"
+                    android:text="Quantity" />
+
+            </HorizontalScrollView>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
