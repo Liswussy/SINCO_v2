@@ -20,6 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <LinearLayout
         android:id="@+id/linearlayout1"
         android:layout_width="match_parent"
@@ -61,50 +62,112 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearlayout2"
+    <ScrollView
+        android:id="@+id/scrollview1"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/linearlayout1"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
-        >
-        <ScrollView
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearlayout1"
+        android:layout_marginTop="10dp">
+
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/yellow_primary"
+            >
+
+            <!--Container-->
 
             <LinearLayout
-                android:id="@+id/linearlayout3"
-                android:layout_width="match_parent"
+                android:id="@+id/linearlayout2"
+                android:layout_width="390dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/register_con"
+               android:layout_gravity="center"
+
                 >
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/beer_icon"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Producy Name"
+                        android:textColor="@color/white_primary"
+                        android:textSize="24sp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Price"
+                        android:textSize="18sp"
+                        android:textColor="@color/white_primary"
+                        />
+
+
+                </LinearLayout>
 
 
 
             </LinearLayout>
 
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/black_primary"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                >
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="220dp"
+                    android:layout_height="55dp"
+                    android:text="Proceed to Payment"
+
+                    app:cornerRadius="20dp"
+                    app:strokeWidth="1dp"
+                    android:textColor="@color/black_primary"
+                    app:backgroundTint="@color/yellow_primary"
+                    />
+
+            </LinearLayout>
 
 
-        </ScrollView>
+        </LinearLayout>
 
-    </LinearLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="220dp"
-        android:layout_height="55dp"
-        android:text="Proceed to Payment"
-        android:layout_marginTop="20dp"
-        app:cornerRadius="20dp"
-        app:strokeWidth="1dp"
-        android:textColor="@color/black_primary"
-        app:backgroundTint="@color/yellow_primary"
-        app:layout_constraintTop_toBottomOf="@+id/linearlayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+
+
+    </ScrollView>
+
+
+
+
+
+
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

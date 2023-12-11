@@ -28,5 +28,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/manager_menu_navigation"/>
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

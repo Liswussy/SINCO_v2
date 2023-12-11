@@ -6,185 +6,69 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".DeliveryFragment">
 
-    <TextView
-        android:id="@+id/textview1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Delivery"
-        android:textStyle="bold"
-        android:textColor="@color/yellow_primary"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/dnp_logo"
+        android:layout_marginEnd="10dp"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toStartOf="@+id/header_title"
+        />
+    <TextView
+        android:id="@+id/header_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delivery"
+        android:layout_marginTop="40dp"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:textColor="@color/white_primary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         />
 
-
-    <LinearLayout
-        android:id="@+id/linearlayout1"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview1"
-        android:orientation="vertical"
-        >
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="Supplier"
-            android:paddingTop="10dp"
-            android:paddingStart="20dp"
-            android:textSize="24sp"
-            android:textColor="@color/white_primary"
-
-            />
-        <Spinner
-            android:id="@+id/sp_supplier"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/yellow_primary"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="Product List"
-            android:textColor="@color/white_primary"
-            android:textSize="24sp"
-            android:paddingTop="10dp"
-            android:paddingStart="20dp"
-
-            />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white_primary"
-            android:orientation="vertical"
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@color/yellow_primary"
-                >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Product Name"
-                    android:textSize="24sp"
-                    />
-
-                
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="24sp"
-                    android:text="Quantity"
-                    />
-
-            </LinearLayout>
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Product Name"
-                        android:textSize="18sp"
-                        android:textColor="@color/black_primary"
-
-                        />
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textFieldQuantity"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        style="@style/SearchInputLayoutStyle"
-                        android:layout_marginTop="0dp"
-                        app:endIconMode="clear_text"
-                        android:hint="Quantity"
-                        app:hintEnabled="true">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:textColor="@color/black_primary"
-                            android:maxLength="100"
-                            android:inputType="text"
-                            />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-
-
-                </LinearLayout>
-
-            </ScrollView>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Product Issue"
-                android:textSize="24sp"
-                android:textColor="@color/white_primary"
-                />
-            <Spinner
-                android:id="@+id/sp_defect"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/yellow_primary"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Product Name"
-                />
-
-
-        </LinearLayout>
-
-
-
-    </LinearLayout>
-
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="220dp"
-        android:layout_height="55dp"
-        android:text="Confirm"
+        android:background="@color/black_primary"
         android:layout_marginTop="20dp"
-        app:cornerRadius="20dp"
-        app:strokeWidth="1dp"
-        android:textColor="@color/black_primary"
-        app:backgroundTint="@color/yellow_primary"
-        app:layout_constraintTop_toBottomOf="@+id/linearlayout1"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header_title"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tabMode="fixed"
+        app:tabGravity="fill">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabAllSales"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Delivery" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabConsignors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delivery Report" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/tabLayout"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+
+
+
+
 
 
 

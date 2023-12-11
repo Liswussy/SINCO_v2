@@ -13,10 +13,9 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/sales_icon"
+            android:src="@drawable/blue_sales_icon"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:background="@color/black_primary"
             />
 
         <LinearLayout
