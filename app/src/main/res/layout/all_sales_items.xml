@@ -1,94 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/white_primary"
-        >
+        android:gravity="center"
+        android:background="@color/black_primary"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/blue_sales_icon"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            />
+            android:layout_width="0dp"
+            android:layout_weight="0.13"
+            android:layout_marginStart="5dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/baseline_monetization_on_24" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:layout_weight="0.6"
+            android:paddingStart="5dp"
+            android:orientation="vertical">
 
             <TextView
+                android:id="@+id/itemNumTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Product Name"
-                android:paddingStart="10dp"
-                android:textColor="@color/black_primary"
+                android:text="3 Items"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@color/white_primary"
                 />
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Date"
-                    android:paddingStart="10dp"
-                    android:textColor="@color/black_primary"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="20dp"
-                    android:text="Time"
-                    android:textColor="@color/black_primary"
-                    />
-
-
-            </LinearLayout>
 
             <TextView
+                android:id="@+id/orderIDTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="10dp"
-                android:textColor="@color/black_primary"
-                android:text="Discount"/>
+                android:text="Order ID:"
+                android:textColor="@color/white_primary"
+                />
+            <TextView
+                android:id="@+id/dateTimeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jan 1, 2023 10:45 AM"
+                android:textColor="@color/white_primary"
+                />
+
 
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:orientation="vertical">
 
             <TextView
+                android:id="@+id/paymentTypeTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Amount"
-                android:gravity="end"
-                android:layout_marginEnd="40dp"
-                android:layout_marginTop="15dp"
-                android:textColor="@color/black_primary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/totalAmountTextView"
+                android:gravity="start|center"
+                android:layout_marginEnd="5dp"
+                android:text="GCash Payment"
+                android:textColor="@color/white_primary"
                 />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/totalAmountTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/paymentTypeTextView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:gravity="start|center"
+                android:layout_marginEnd="5dp"
+                android:text="Php 45.00"
+                android:textColor="@color/white_primary" />
 
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 
-
-
-
-
+    <View
+        android:id="@+id/bottomOutline"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:alpha="0.5"
+        android:background="@color/light_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
