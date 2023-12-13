@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="weight_goal_array">
-
+    <string-array name="date_range_array">
         <item>Today</item>
         <item>Yesterday</item>
         <item>Last 7 Days</item>
@@ -9,8 +8,6 @@
         <item>This Month</item>
         <item>Last Month</item>
         <item>This Year</item>
-
-
     </string-array>
 
 </resources>

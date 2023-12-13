@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/dateTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Jan 1, 2023 10:45 AM"
+        android:gravity="start"
+        android:textSize="16sp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/white_primary" />
+
+    <TextView
+        android:id="@+id/paymentTypeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateTimeTextView"
+        android:gravity="start|center"
+        android:textSize="16sp"
+        android:layout_marginEnd="5dp"
+        android:text="GCash Payment"
+        android:textColor="@color/white_primary"
+        />
+
+    <TextView
+        android:id="@+id/totalAmountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/paymentTypeTextView"
+        android:gravity="start|center"
+        android:textSize="16sp"
+        android:layout_marginEnd="5dp"
+        android:text="Php 45.00"
+        android:textColor="@color/white_primary" />
+
+    <TextView
+        android:id="@+id/productsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/totalAmountTextView"
+        android:gravity="start|center"
+        android:textSize="16sp"
+        android:layout_marginEnd="5dp"
+        android:text="All malt - Php300.00 x 1"
+        android:textColor="@color/white_primary" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
