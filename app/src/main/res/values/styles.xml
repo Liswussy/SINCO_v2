@@ -63,4 +63,20 @@
         <item name="strokeColor">@color/white</item>
     </style>
 
+    <style name="CustomSpinnerThinBorder" parent="">
+        <item name="android:colorForeground">@color/white_primary</item>
+
+        <item name="background">@drawable/spinner_thin_border</item>
+
+    </style>
+
+    <style name="CustomMaterialButtonBorderRadius" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/black_primary</item>
+        <item name="cornerRadius">5dp</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="android:textColor">@color/yellow_primary</item>
+        <item name="strokeColor">@color/white</item>
+        <item name="android:state_pressed"></item>
+    </style>
+
 </resources>

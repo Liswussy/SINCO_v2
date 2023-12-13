@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ModifySupplierFragment">
+    tools:context=".ModifyDeleteSupplierActivity">
 
 
     <ImageButton
@@ -131,14 +131,15 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_update"
         android:layout_width="280dp"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:layout_marginTop="20dp"
         android:text="Update"
-        android:textColor="@color/black_primary"
-        android:backgroundTint="@color/yellow_primary"
+        style="@style/CustomMaterialButtonBorderRadius"
         app:layout_constraintTop_toBottomOf="@+id/input_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -146,13 +147,12 @@
         />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/delete"
+        android:id="@+id/btn_delete"
         android:layout_width="280dp"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:layout_marginTop="20dp"
         android:text="Remove"
-        android:textColor="@color/black_primary"
-        android:backgroundTint="@color/yellow_primary"
+        style="@style/CustomMaterialButtonBorderRadius"
         app:layout_constraintTop_toBottomOf="@+id/btn_update"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

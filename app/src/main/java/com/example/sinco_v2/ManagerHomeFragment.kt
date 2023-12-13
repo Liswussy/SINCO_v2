@@ -51,10 +51,18 @@ class ManagerHomeFragment : Fragment() {
             transaction.commit()
 
         }
+
+        val imageButton_3: ImageButton = view.findViewById(R.id.employee_icon)
+        imageButton_3.setOnClickListener {
+            // Navigate to FragmentC
+            val manageEmployeeFragment = EmployeeFragment()
+            val transaction = requireActivity().supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.fragment_container, manageEmployeeFragment)
+            transaction.addToBackStack(null)  // Optional, adds the transaction to the back stack
+            transaction.commit()
+
+        }
     }
-
-
-
 
 
 }
