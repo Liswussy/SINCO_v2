@@ -10,96 +10,124 @@
         android:id="@+id/linearlayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
 
         >
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/dnp_logo" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:text="Greetings!"
+            android:layout_marginTop="20dp"
+            android:text="Your Tasks"
             android:textColor="@color/white_primary"
-            android:textSize="24sp" />
+            android:textSize="18sp"
+
+            />
 
     </LinearLayout>
     <!--Product-->
-    <ImageButton
-        android:id="@+id/product_icon"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/baseline_home_24"
+
+    <LinearLayout
+        android:id="@+id/linearlayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearlayout1" />
+        app:layout_constraintTop_toBottomOf="@id/linearlayout1">
 
-    <TextView
-        android:id="@+id/textview_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Products"
-        android:textColor="@color/white_primary"
-        android:textSize="10dp"
-        app:layout_constraintStart_toStartOf="@id/product_icon"
-        app:layout_constraintTop_toBottomOf="@id/product_icon" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
-    <!--Supplier-->
+            <ImageButton
+                android:id="@+id/product_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="30dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitXY"
+                android:src="@drawable/box_icon" />
 
-    <ImageButton
-        android:id="@+id/supplier_icon"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/baseline_home_24"
-        app:layout_constraintStart_toEndOf="@id/product_icon"
-        app:layout_constraintTop_toBottomOf="@id/linearlayout1" />
-
-    <TextView
-        android:id="@+id/textview_label2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Suppliers"
-        android:textColor="@color/white_primary"
-        android:textSize="10dp"
-        app:layout_constraintStart_toStartOf="@id/supplier_icon"
-        app:layout_constraintTop_toBottomOf="@id/supplier_icon" />
+            <TextView
+                android:id="@+id/textview_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Products"
+                android:textColor="@color/white_primary"
+                android:textSize="18sp" />
 
 
-    <!--Employee-->
+        </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/employee_icon"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/baseline_home_24"
-        app:layout_constraintStart_toEndOf="@id/supplier_icon"
-        app:layout_constraintTop_toBottomOf="@id/linearlayout1" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textview_label3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Employee"
-        android:textColor="@color/white_primary"
-        android:textSize="10dp"
-        app:layout_constraintStart_toStartOf="@id/employee_icon"
-        app:layout_constraintTop_toBottomOf="@id/employee_icon" />
+            <!--Supplier-->
 
+            <ImageButton
+                android:id="@+id/supplier_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="30dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitXY"
+                android:src="@drawable/supplier_icon" />
+
+            <TextView
+                android:id="@+id/textview_label2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Suppliers"
+                android:textColor="@color/white_primary"
+                android:textSize="18sp" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <!--Employee-->
+
+            <ImageButton
+                android:id="@+id/employee_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="30dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitXY"
+                android:src="@drawable/employee_icon" />
+
+            <TextView
+                android:id="@+id/textview_label3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Employee"
+                android:textColor="@color/white_primary"
+                android:textSize="18sp" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textview2"
@@ -111,10 +139,10 @@
         android:textColor="@color/white_primary"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_label" />
+        app:layout_constraintTop_toBottomOf="@id/linearlayout2" />
 
     <LinearLayout
-        android:id="@+id/linearlayout2"
+        android:id="@+id/linearlayout3"
         android:layout_width="match_parent"
         android:layout_height="170dp"
         android:layout_marginTop="20dp"
@@ -130,6 +158,7 @@
             android:layout_marginTop="10dp"
             android:paddingStart="10dp"
             android:text="Total Active Employee:"
+            android:textColor="@color/black_primary"
             android:textSize="18sp" />
 
         <LinearLayout
@@ -141,7 +170,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="10dp"
-                android:src="@drawable/customer_icon" />
+                android:src="@drawable/group_icon_black" />
 
             <TextView
                 android:id="@+id/tv_active"
@@ -150,6 +179,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="4dp"
                 android:text="0"
+                android:textColor="@color/black_primary"
                 android:textSize="24sp" />
 
 
@@ -161,6 +191,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:text="Sales Overview:"
+            android:textColor="@color/black_primary"
             android:textSize="18sp"
 
             />
@@ -176,7 +207,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/vi_sales_icon" />
+                android:src="@drawable/sales_icon_black" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -184,6 +215,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:text="P0.00"
+                android:textColor="@color/black_primary"
                 android:textSize="24sp" />
 
         </LinearLayout>
@@ -200,7 +232,7 @@
         android:textColor="@color/white_primary"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearlayout2"
+        app:layout_constraintTop_toBottomOf="@id/linearlayout3"
 
         />
 
@@ -228,6 +260,7 @@
                 android:layout_weight="1"
                 android:paddingStart="10dp"
                 android:text="Product Name"
+                android:textColor="@color/black_primary"
                 android:textSize="20sp" />
 
             <TextView
@@ -236,6 +269,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:text="Quantity"
+                android:textColor="@color/black_primary"
                 android:textSize="20sp" />
 
         </LinearLayout>
@@ -247,34 +281,26 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <HorizontalScrollView
-                android:layout_width="0dp"
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:paddingStart="10dp"
+                android:text="Product 1"
+                android:textColor="@color/black_primary"
+                android:textSize="16sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="10dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/black_primary"
-                    android:text="Product 1 with a Long Name" />
-            </HorizontalScrollView>
 
-            <HorizontalScrollView
-                android:layout_width="0dp"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:paddingStart="5dp"
+                android:text="Quantity"
+                android:textColor="@color/black_primary"
+                android:textSize="16sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="5dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/black_primary"
-                    android:text="Quantity" />
-
-            </HorizontalScrollView>
 
         </LinearLayout>
 
