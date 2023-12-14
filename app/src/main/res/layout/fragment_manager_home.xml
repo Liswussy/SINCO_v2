@@ -23,8 +23,9 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:text="Your Tasks"
+            android:textStyle="bold"
             android:textColor="@color/white_primary"
-            android:textSize="18sp"
+            android:textSize="20sp"
 
             />
 
@@ -60,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Products"
-                android:textColor="@color/white_primary"
+                android:textColor="@color/yellow_primary"
                 android:textSize="18sp" />
 
 
@@ -89,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Suppliers"
-                android:textColor="@color/white_primary"
+                android:textColor="@color/yellow_primary"
                 android:textSize="18sp" />
 
 
@@ -120,7 +121,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Employee"
-                android:textColor="@color/white_primary"
+                android:textColor="@color/yellow_primary"
                 android:textSize="18sp" />
 
 
@@ -129,28 +130,16 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textview2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:text="Sales and Employee Status:"
-        android:textColor="@color/white_primary"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearlayout2" />
 
     <LinearLayout
         android:id="@+id/linearlayout3"
         android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="@color/yellow_primary"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview2">
+        app:layout_constraintTop_toBottomOf="@+id/linearlayout2">
 
         <TextView
             android:layout_width="wrap_content"
@@ -158,8 +147,9 @@
             android:layout_marginTop="10dp"
             android:paddingStart="10dp"
             android:text="Total Active Employee:"
-            android:textColor="@color/black_primary"
-            android:textSize="18sp" />
+            android:textStyle="bold"
+            android:textColor="@color/white_primary"
+            android:textSize="20sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -167,10 +157,11 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:scaleType="fitCenter"
                 android:layout_marginStart="10dp"
-                android:src="@drawable/group_icon_black" />
+                android:src="@drawable/group_icon_w" />
 
             <TextView
                 android:id="@+id/tv_active"
@@ -179,7 +170,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="4dp"
                 android:text="0"
-                android:textColor="@color/black_primary"
+                android:textColor="@color/white_primary"
                 android:textSize="24sp" />
 
 
@@ -191,8 +182,9 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:text="Sales Overview:"
-            android:textColor="@color/black_primary"
-            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/white_primary"
+            android:textSize="20sp"
 
             />
 
@@ -207,7 +199,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/sales_icon_black" />
+                android:src="@drawable/sales_icon" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -215,7 +207,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:text="P0.00"
-                android:textColor="@color/black_primary"
+                android:textColor="@color/white_primary"
                 android:textSize="24sp" />
 
         </LinearLayout>
@@ -229,8 +221,9 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:text="Inventory Overview"
+        android:textStyle="bold"
         android:textColor="@color/white_primary"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearlayout3"
 
@@ -240,7 +233,7 @@
         android:layout_width="match_parent"
         android:layout_height="170dp"
         android:layout_marginTop="20dp"
-        android:background="@color/white_primary"
+        android:background="@drawable/spinner_thin_border"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -260,6 +253,7 @@
                 android:layout_weight="1"
                 android:paddingStart="10dp"
                 android:text="Product Name"
+                android:gravity="center"
                 android:textColor="@color/black_primary"
                 android:textSize="20sp" />
 
@@ -269,6 +263,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:text="Quantity"
+                android:gravity="center"
                 android:textColor="@color/black_primary"
                 android:textSize="20sp" />
 
@@ -279,6 +274,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
 
@@ -286,23 +282,30 @@
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:paddingStart="10dp"
+                android:gravity="center"
                 android:text="Product 1"
-                android:textColor="@color/black_primary"
-                android:textSize="16sp" />
+                android:textColor="@color/white_primary"
+                android:textSize="18sp" />
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:paddingStart="5dp"
+                android:gravity="center"
                 android:text="Quantity"
-                android:textColor="@color/black_primary"
-                android:textSize="16sp" />
+                android:textColor="@color/white_primary"
+                android:textSize="18sp" />
 
 
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_height="1dp"
+            android:background="@color/white_primary"
+            />
 
     </LinearLayout>
 

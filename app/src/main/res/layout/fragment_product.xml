@@ -85,9 +85,11 @@
 
         <ScrollView
             android:id="@+id/scrollview1"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
             app:layout_constraintTop_toBottomOf="@+id/searchInputLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -95,95 +97,14 @@
             >
 
             <LinearLayout
+                android:id="@+id/linearlayout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="10dp"
                 >
                 <!--Items-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:background="@color/white_primary"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="20dp"
-                    >
 
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="60dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginStart="20dp"
-                        android:src="@drawable/blue_sales_icon"
-
-                        />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            android:layout_marginStart="10dp"
-                            android:text="Product Name"
-                            />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="25dp"
-                            android:textSize="18sp"
-                            android:text="Category"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Price"
-                            android:layout_marginStart="25dp"
-                            android:textSize="18sp"
-                            />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Supplier"
-                            android:layout_marginStart="25dp"
-                            android:textSize="18sp"
-                            />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="40dp"
-                        >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Size"
-                            android:textSize="18sp"
-                            />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Cost"
-                            android:textSize="18sp"
-                            />
-
-
-                    </LinearLayout>
-
-
-
-                </LinearLayout>
 
 
 
@@ -200,7 +121,7 @@
         android:id="@+id/ib_add_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="372dp"
+        android:layout_marginTop="450dp"
         android:layout_marginEnd="16dp"
 
         android:background="@android:color/transparent"

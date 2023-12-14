@@ -41,12 +41,17 @@ class AllSalesFragment : Fragment() {
         linearlayout2 = view.findViewById(R.id.linearlayout2)
         placeholderTextView = view.findViewById(R.id.placeholderTextView)
 
+        val calendar1 = Calendar.getInstance()
+        val currentDate1 = calendar1.time
+        getTransactionHistoryData(currentDate1, currentDate1)
+
         val spinner: Spinner = view.findViewById(R.id.spinner)
         val adapter = ArrayAdapter.createFromResource(
             requireContext(),
             R.array.date_range_array,
             android.R.layout.simple_spinner_item
         )
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
         spinner.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
@@ -249,10 +254,7 @@ class AllSalesFragment : Fragment() {
 
                 canGetData = true
             }
-            .addOnFailureListener { exception ->
-                placeholderTextView.visibility = View.VISIBLE
-                canGetData = true
-            }
+
     }
 
     fun showCustomDialog(document: QueryDocumentSnapshot) {

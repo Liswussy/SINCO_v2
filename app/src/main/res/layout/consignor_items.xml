@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:background="@drawable/spinner_thin_border"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+
+            android:src="@drawable/supplier_icon_white"
+
+            />
+        <TextView
+            android:id="@+id/consignorTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:text="Supplier Name"
+            android:gravity="center|left"
+            android:textColor="@color/white_primary"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:textSize="24sp"
+
+            />
+
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

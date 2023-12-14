@@ -1,11 +1,13 @@
 package com.example.sinco_v2
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.navigation.fragment.findNavController
@@ -30,39 +32,38 @@ class ManagerHomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val imageButton_1: ImageButton = view.findViewById(R.id.product_icon)
-        imageButton_1.setOnClickListener {
-            // Navigate to FragmentB
-            val productFragment = ProductFragment()
-            val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, productFragment)
-            transaction.addToBackStack(null)  // Optional, adds the transaction to the back stack
-            transaction.commit()
+        // Assuming you have a button or some other UI element that triggers the redirection
+        val redirectToProductButton = view.findViewById<ImageButton>(R.id.product_icon)
+        val redirectToSupplierButton = view.findViewById<ImageButton>(R.id.supplier_icon)
+        val redirectToEmployeeButton = view.findViewById<ImageButton>(R.id.employee_icon)
 
+        redirectToProductButton.setOnClickListener {
+            redirectToFragment(ProductFragment())
         }
 
-        val imageButton_2: ImageButton = view.findViewById(R.id.supplier_icon)
-        imageButton_2.setOnClickListener {
-            // Navigate to FragmentC
-            val supplierFragment = SupplierFragment()
-            val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, supplierFragment)
-            transaction.addToBackStack(null)  // Optional, adds the transaction to the back stack
-            transaction.commit()
-
+        redirectToSupplierButton.setOnClickListener {
+            redirectToFragment(SupplierFragment())
         }
 
-        val imageButton_3: ImageButton = view.findViewById(R.id.employee_icon)
-        imageButton_3.setOnClickListener {
-            // Navigate to FragmentC
-            val manageEmployeeFragment = EmployeeFragment()
-            val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, manageEmployeeFragment)
-            transaction.addToBackStack(null)  // Optional, adds the transaction to the back stack
-            transaction.commit()
-
+        redirectToEmployeeButton.setOnClickListener {
+            redirectToFragment(EmployeeFragment())
         }
+
+    }
+
+    private fun redirectToFragment(fragment: Fragment) {
+
+        val fragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragment_container, fragment)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
+
     }
 
 
+
 }
+
+
+
+
