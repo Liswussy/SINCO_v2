@@ -5,32 +5,27 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import com.google.android.material.tabs.TabLayout
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 
-class InventoryFragment : Fragment() {
+class ReturnProductFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_inventory, container, false)
+        val view = inflater.inflate(R.layout.fragment_return_product, container, false)
 
-
-        // Add your fragments for each tab
-        val allinventory = AllInventoryFragment()// AllInventoryFragment()
-        val stocktake = StockTakeFragment()//StockTakeFragment()
+        val newReturnedProductsragment = NewReturnedProductsFragment()// AllInventoryFragment()
+        val returnProductReportFragment = ReturnProductReportFragment()//StockTakeFragment()
 
         parentFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, allinventory)
+            .replace(R.id.fragmentContainer, newReturnedProductsragment)
             .commit()
 
         val tabLayout = view.findViewById<TabLayout>(R.id.tabLayout)
@@ -40,12 +35,12 @@ class InventoryFragment : Fragment() {
                 when (tab?.position) {
                     0 -> {
                         parentFragmentManager.beginTransaction()
-                            .replace(R.id.fragmentContainer, allinventory)
+                            .replace(R.id.fragmentContainer, newReturnedProductsragment)
                             .commit()
                     }
                     1 -> {
                         parentFragmentManager.beginTransaction()
-                            .replace(R.id.fragmentContainer, stocktake)
+                            .replace(R.id.fragmentContainer, returnProductReportFragment)
                             .commit()
                     }
                 }
@@ -60,11 +55,10 @@ class InventoryFragment : Fragment() {
             }
         })
 
-
         return view
     }
 
 
 
-    }
+}
 

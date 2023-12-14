@@ -36,6 +36,7 @@ class ManagerHomeFragment : Fragment() {
         val redirectToProductButton = view.findViewById<ImageButton>(R.id.product_icon)
         val redirectToSupplierButton = view.findViewById<ImageButton>(R.id.supplier_icon)
         val redirectToEmployeeButton = view.findViewById<ImageButton>(R.id.employee_icon)
+        val redirectToReturnButton = view.findViewById<ImageButton>(R.id.return_icon)
 
         redirectToProductButton.setOnClickListener {
             redirectToFragment(ProductFragment())
@@ -47,6 +48,9 @@ class ManagerHomeFragment : Fragment() {
 
         redirectToEmployeeButton.setOnClickListener {
             redirectToFragment(EmployeeFragment())
+        }
+        redirectToReturnButton.setOnClickListener {
+            redirectToFragment(ReturnProductFragment())
         }
 
     }

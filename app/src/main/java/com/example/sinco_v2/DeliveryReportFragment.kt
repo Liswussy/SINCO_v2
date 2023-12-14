@@ -17,8 +17,10 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.dialog.MaterialDialogs
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QueryDocumentSnapshot
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
@@ -219,11 +221,13 @@ class DeliveryReportFragment : Fragment() {
 
                 for (document in documents) {
                     val date = document.get("date") as? Timestamp ?: Timestamp.now()
-                    val products = document.get("products") as? ArrayList<Map<String, Any>> ?: ArrayList()
+                    val products =
+                        document.get("products") as? ArrayList<Map<String, Any>> ?: ArrayList()
                     val supplier = document.get("supplier") as? String ?: ""
 
                     val inflater = LayoutInflater.from(requireContext())
-                    val customItemView = inflater.inflate(R.layout.delivery_report_items, linearlayout1, false)
+                    val customItemView =
+                        inflater.inflate(R.layout.delivery_report_items, linearlayout1, false)
 
                     val itemsDeliveredViewed =
                         customItemView.findViewById<TextView>(R.id.itemsDelivered)
@@ -237,7 +241,8 @@ class DeliveryReportFragment : Fragment() {
                     }
                     itemsDeliveredViewed.text = itemsDelivered
 
-                    val deliveryIDTextView = customItemView.findViewById<TextView>(R.id.tv_deliveryID)
+                    val deliveryIDTextView =
+                        customItemView.findViewById<TextView>(R.id.tv_deliveryID)
                     val deliveryIDText = "Delivery ID:\n${document.id}"
                     deliveryIDTextView.text = deliveryIDText
 
@@ -248,7 +253,7 @@ class DeliveryReportFragment : Fragment() {
                     val dateTimeText = formatDate(date.toDate())
                     dateTimeTextView.text = dateTimeText
 
-                    customItemView.setOnClickListener(){
+                    customItemView.setOnClickListener() {
                         showCustomDialogForDeliveryReport(document)
                     }
 
@@ -264,12 +269,14 @@ class DeliveryReportFragment : Fragment() {
 
 
     }
-    fun showCustomDialogForDeliveryReport(document: QueryDocumentSnapshot){
-        val products = document.get("products") as?  ArrayList<Map<String, Any>> ?: ArrayList()
+
+    fun showCustomDialogForDeliveryReport(document: QueryDocumentSnapshot) {
+        val products = document.get("products") as? ArrayList<Map<String, Any>> ?: ArrayList()
         val date = document.get("date") as? Timestamp ?: Timestamp.now()
         val supplier = document.get("supplier") as? String ?: ""
 
-        val view = LayoutInflater.from(requireContext()).inflate(R.layout.custom_dialog_delivery_report, null)
+        val view = LayoutInflater.from(requireContext())
+            .inflate(R.layout.custom_dialog_delivery_report, null)
         val builder = MaterialAlertDialogBuilder(requireContext())
 
         val dateTimeTextView = view.findViewById<TextView>(R.id.tv_date)
@@ -315,6 +322,7 @@ class DeliveryReportFragment : Fragment() {
         val dialog = builder.create()
         dialog.show()
     }
+
     fun formatDate(inputDate: Date): String {
         val pattern = "MMM d, yyyy"
         val dateFormat = SimpleDateFormat(pattern, Locale.getDefault())
@@ -353,5 +361,6 @@ class DeliveryReportFragment : Fragment() {
         calendar.set(Calendar.MILLISECOND, 999)
         return calendar.time
     }
+
 
 }

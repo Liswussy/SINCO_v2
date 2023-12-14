@@ -65,7 +65,7 @@
                 android:hint="Product ID">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_product_id"
+                    android:id="@+id/productIDTextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number" />
@@ -81,7 +81,7 @@
 
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_product_name"
+                    android:id="@+id/productNameTextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text" />
@@ -89,7 +89,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <com.google.android.material.textfield.TextInputLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_category"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
@@ -97,19 +97,19 @@
                 android:background="@drawable/spinner_thin_border">
 
                 <Spinner
-                    android:id="@+id/sp_category"
+                    android:id="@+id/spinnerCategory"
                     style="@style/CustomSpinnerThinBorder"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:paddingStart="8dp"
 
                     />
 
-            </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            <com.google.android.material.textfield.TextInputLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_supplier"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
@@ -119,14 +119,14 @@
                 >
 
                 <Spinner
-                    android:id="@+id/sp_supplier"
+                    android:id="@+id/spinnerSupplier"
                     style="@style/CustomSpinnerThinBorder"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:paddingStart="8dp" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             <LinearLayout
@@ -148,14 +148,15 @@
                     app:endIconMode="clear_text">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/sizeTextInputEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:inputType="number" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
 
-                <com.google.android.material.textfield.TextInputLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
                     android:layout_height="55dp"
                     android:layout_marginStart="5dp"
@@ -164,14 +165,14 @@
                     android:background="@drawable/spinner_thin_border">
 
                     <Spinner
-                        android:id="@+id/sp_units"
+                        android:id="@+id/spinnerUnits"
                         style="@style/CustomSpinner"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:paddingStart="8dp" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             </LinearLayout>
@@ -187,6 +188,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearlayout2">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/quantityTextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number" />
@@ -202,11 +204,26 @@
                 android:hint="Price">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_price"
+                    android:id="@+id/priceTextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:inputType="number" />
 
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputCost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Cost">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/costTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -218,6 +235,7 @@
                 android:hint="SKU">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/skuIDTextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text" />
@@ -232,6 +250,8 @@
                     android:textColor="@color/white_primary"
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
+
+
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/button_upload"
@@ -258,7 +278,7 @@
 
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_next"
+                android:id="@+id/buttonAdd"
                 style="@style/CustomMaterialButtonBorderRadius"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"

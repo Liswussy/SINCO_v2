@@ -11,35 +11,33 @@ import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QueryDocumentSnapshot
-import com.google.firebase.firestore.QuerySnapshot
 
 
-class NewDeliveryFragment : Fragment() {
+class NewReturnedProductsFragment : Fragment() {
 
     private lateinit var supplierProductsLayout: LinearLayout
-    private lateinit var productDefects : LinearLayout
     var consignorIdList = mutableListOf<String>()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_new_delivery, container, false)
+        val view = inflater.inflate(R.layout.fragment_new_returned_products, container, false)
 
-        supplierProductsLayout = view.findViewById(R.id.supplierProductsLayout)
-        productDefects = view.findViewById(R.id.productDefects)
         getAllSupplierDataFromFirebaseToSpinner()
-
-
+        supplierProductsLayout = view.findViewById(R.id.supplierProductsLayout)
         return view
+
     }
+
+
 
     private fun getAllSupplierDataFromFirebaseToSpinner() {
 
@@ -80,7 +78,7 @@ class NewDeliveryFragment : Fragment() {
                     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                         val consignorDocId = consignorIdList[position]
 
-                        Toast.makeText(requireContext(), consignorDocId,Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), consignorDocId, Toast.LENGTH_SHORT).show()
 
                         val consignorDocRef = db.collection("suppliers").document(consignorDocId)
                         consignorDocRef.get()
@@ -88,7 +86,7 @@ class NewDeliveryFragment : Fragment() {
                                 setupSuppliersProducts(document)
                             }
                             .addOnFailureListener {
-                                Toast.makeText(requireContext(), "Database Error",Toast.LENGTH_SHORT).show()
+                                Toast.makeText(requireContext(), "Database Error", Toast.LENGTH_SHORT).show()
                             }
                     }
 
@@ -99,6 +97,7 @@ class NewDeliveryFragment : Fragment() {
 
             }
     }
+
 
     private fun setupSuppliersProducts(document: DocumentSnapshot){
 
@@ -116,14 +115,8 @@ class NewDeliveryFragment : Fragment() {
 
             supplierProductsLayout.addView(customItemView)
 
-
-
         }
 
 
     }
-
-
-
-
 }
