@@ -1,5 +1,7 @@
 package com.example.sinco_v2
 
+import ProductFragment
+import SupplierFragment
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -41,7 +43,6 @@ class ManagerHomeFragment : Fragment() {
         redirectToProductButton.setOnClickListener {
             redirectToFragment(ProductFragment())
         }
-
         redirectToSupplierButton.setOnClickListener {
             redirectToFragment(SupplierFragment())
         }

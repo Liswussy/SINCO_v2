@@ -1,30 +1,88 @@
+// SplashActivity.kt
+
 package com.example.sinco_v2
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class SplashActivity : AppCompatActivity() {
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        redirectToDestination()
+    }
 
-        val auth = FirebaseAuth.getInstance()
-
+    private fun redirectToDestination() {
         val user = auth.currentUser
-        val userId = user?.uid
-
-        if (userId != null){ // user is logged in
-            val intent = Intent(this, ManagerActivity::class.java)
-            startActivity(intent)
-            finish()
+        if (user != null) {
+            // User is already authenticated, fetch user role and redirect accordingly
+            fetchUserRoleAndRedirect(user.uid)
         } else {
-            val intent = Intent(this, ManagerActivity::class.java) // LOGIN ACTIVITY
-            startActivity(intent)
-            finish()
+            // User is not authenticated, redirect to LoginActivity
+            redirectToLogin()
         }
+    }
 
+    private fun redirectToLogin() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
 
+    private fun redirectToHomeActivity(userRole: String) {
+        when (userRole) {
+            "manager" -> {
+                // Redirect to ManagerActivity that hosts the ManagerFragment
+                val intent = Intent(this, ManagerActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+
+            "store staff" -> {
+                // Redirect to MainActivity that hosts the HomeFragment
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+
+            else -> {
+                // Redirect to a default home fragment or activity
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
+    }
+
+    private fun fetchUserRoleAndRedirect(userId: String) {
+        val db = FirebaseFirestore.getInstance()
+        val docRef = db.collection("users").document(userId)
+
+        docRef.get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val userRole = document.getString("role")
+                    // Redirect based on user role
+                    redirectToHomeActivity(userRole.orEmpty())
+                } else {
+                    // Document doesn't exist
+                    // Redirect to a default home fragment or activity
+                    redirectToHomeActivity("")
+                }
+            }
+            .addOnFailureListener { exception ->
+                // Failed to retrieve document
+                // Redirect to a default home fragment or activity
+                redirectToHomeActivity("")
+            }
     }
 }
+

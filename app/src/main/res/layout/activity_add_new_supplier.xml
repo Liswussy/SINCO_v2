@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".AddNewSupplierFragment">
+    tools:context=".AddNewSupplierActivity">
 
     <ImageButton
         android:id="@+id/ib_back_icon"
@@ -61,6 +61,7 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/supplierNameTextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -81,6 +82,7 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/addressTextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -101,6 +103,7 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/contactNumberTextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
@@ -121,6 +124,7 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailAddressTextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"

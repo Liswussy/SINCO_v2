@@ -1,29 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        android:paddingBottom="10dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
 
         <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/productNameCheckBox"
+            android:id="@+id/product2CheckBoxTextView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Product Name"
+            android:text="Products"
             android:textColor="@color/white_primary"
             android:textSize="18sp"
 
             />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/quantityTextInputLayout"
             style="@style/QuantityTextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -32,7 +29,7 @@
 
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/quantityTextInput"
+                android:id="@+id/quantity2TextInput"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="number"
@@ -42,7 +39,6 @@
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
-
 
     </LinearLayout>
 

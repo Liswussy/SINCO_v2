@@ -1,5 +1,6 @@
 package com.example.sinco_v2
 
+import DeliveryFragment
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent

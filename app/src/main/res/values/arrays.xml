@@ -28,5 +28,13 @@
 
     </string-array>
 
+    <string-array name="role">
+
+        <item>StoreStaff</item>
+        <item>Manager</item>
+        <item>Auditor</item>
+
+    </string-array>
+
 
 </resources>
