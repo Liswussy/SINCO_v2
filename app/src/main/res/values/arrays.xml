@@ -30,7 +30,7 @@
 
     <string-array name="role">
 
-        <item>StoreStaff</item>
+        <item>Employee</item>
         <item>Manager</item>
         <item>Auditor</item>
 

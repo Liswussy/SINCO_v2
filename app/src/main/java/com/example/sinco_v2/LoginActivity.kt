@@ -4,10 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 
 class LoginActivity : AppCompatActivity() {
@@ -22,6 +23,12 @@ class LoginActivity : AppCompatActivity() {
         val loginButton = findViewById<Button>(R.id.buttonLogin)
         loginButton.setOnClickListener {
             loginUser()
+        }
+
+        val registerButton = findViewById<TextView>(R.id.registerButton)
+        registerButton.setOnClickListener {
+            val intent = Intent(this, AccountRegisterActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -63,37 +70,36 @@ class LoginActivity : AppCompatActivity() {
                     when (userRole) {
                         "manager" -> {
                             // Redirect to ManagerHomeActivity that hosts the ManagerHomeFragment
-                            val intent = Intent(this, ManagerActivity::class.java)
+                            val intent = Intent(this, MainManagerActivity::class.java)
                             startActivity(intent)
                             finish()
                         }
-                        "store staff" -> {
+                        "employee" -> {
                             // Redirect to HomeActivity that hosts the HomeFragment
-                            val intent = Intent(this, MainActivity::class.java)
+                            val intent = Intent(this, MainEmployeeActivity::class.java)
                             startActivity(intent)
                             finish()
                         }
                         else -> {
-                            // Redirect to a default home fragment or activity
-                            val intent = Intent(this, MainActivity::class.java)
-                            startActivity(intent)
-                            finish()
+                            // not allow access when user has no role
+                            Toast.makeText(this, "Access Denied. Please contact a Manager to activate your account", Toast.LENGTH_SHORT).show()
+                            logoutUser()
                         }
                     }
                 } else {
-                    // Document doesn't exist
-                    // Redirect to a default home fragment or activity
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    // not allow access when user has no data
+                    Toast.makeText(this, "Access Denied. Please contact a Manager to activate your account", Toast.LENGTH_SHORT).show()
+                    logoutUser()
                 }
             }
             .addOnFailureListener { exception ->
-                // Failed to retrieve document
-                // Redirect to a default home fragment or activity
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
+                // not allow access when user data cannot be read/verified
+                Toast.makeText(this, "Access Denied. Cannot verify account.", Toast.LENGTH_SHORT).show()
+                logoutUser()
             }
+    }
+
+    private fun logoutUser() {
+        auth.signOut()
     }
 }

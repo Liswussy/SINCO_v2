@@ -22,12 +22,15 @@ class AddNewProductActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_new_product)
 
         fetchSupplierData()
-        addNewProduct()
+        // addNewProduct()
         setListeners()
         setupCategorySpinner()
         setupUnitsSpinner()
 
-
+        val ib_back_icon = findViewById<ImageButton>(R.id.ib_back_icon)
+        ib_back_icon.setOnClickListener{
+            finish()
+        }
     }
 
     private fun setupCategorySpinner() {

@@ -87,6 +87,7 @@
                     android:id="@+id/input_product_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:enabled="false"
                     android:inputType="number" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -159,7 +160,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/layout_supplier">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_size"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -167,6 +167,7 @@
                     app:endIconMode="clear_text">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/input_size"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text" />
@@ -196,7 +197,7 @@
             </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_quantity"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -206,6 +207,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearlayout2">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_quantity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number" />
@@ -214,14 +216,14 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_price"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="Price">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_price"
+                    android:id="@+id/input_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text" />
@@ -230,13 +232,14 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_sku"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="SKU">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_sku"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text" />

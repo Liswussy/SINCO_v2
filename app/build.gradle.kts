@@ -52,7 +52,8 @@ android {
 }
 
 dependencies {
-
+    implementation("com.squareup.picasso:picasso:2.71828")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("com.google.android.material:material:1.5.0")
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")

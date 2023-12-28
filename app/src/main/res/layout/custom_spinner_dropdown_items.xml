@@ -9,9 +9,6 @@
         style="?android:attr/spinnerDropDownItemStyle"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:gravity="center"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
         android:singleLine="true"
         android:textColor="@color/white_primary" />
 </androidx.constraintlayout.widget.ConstraintLayout>

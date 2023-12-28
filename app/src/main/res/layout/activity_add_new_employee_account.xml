@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddNewEmployeeAccountActivity">
+    tools:context=".EnrollEmployeeActivity">
 
     <LinearLayout
         android:id="@+id/linearlayout1"
@@ -29,7 +29,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add New Employee"
+            android:text="Employee Details"
             android:layout_marginTop="5dp"
             android:layout_marginStart="5dp"
             android:textColor="@color/yellow_primary"
@@ -63,7 +63,11 @@
                     android:id="@+id/firstNameTextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="none"
+                    android:textCursorDrawable="@android:color/transparent"
+                    android:focusable="false"
+                    android:enabled="false"
+                    android:focusableInTouchMode="false"
                     />
 
 
@@ -81,7 +85,11 @@
                     android:id="@+id/NameTextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="none"
+                    android:textCursorDrawable="@android:color/transparent"
+                    android:focusable="false"
+                    android:enabled="false"
+                    android:focusableInTouchMode="false"
                     />
 
 
@@ -101,7 +109,11 @@
                 android:id="@+id/emailTextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
+                android:inputType="none"
+                android:textCursorDrawable="@android:color/transparent"
+                android:focusable="false"
+                android:enabled="false"
+                android:focusableInTouchMode="false"
                 />
 
 
@@ -124,7 +136,11 @@
                     android:id="@+id/contactTextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
+                    android:inputType="none"
+                    android:textCursorDrawable="@android:color/transparent"
+                    android:focusable="false"
+                    android:enabled="false"
+                    android:focusableInTouchMode="false"
                     />
 
 
@@ -142,58 +158,38 @@
                 <Spinner
                     android:id="@+id/spinnerRole"
                     style="@style/CustomSpinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="Password"
-            >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/passwordTextInputEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="Confirm Password"
-            >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/confirmPasswordTextInputEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/addButton"
+            android:id="@+id/enrollButton"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="20dp"
-            android:text="Add Employee"
+            android:layout_marginTop="30dp"
+            android:textAllCaps="false"
+            android:text="Enroll Employee"
+            style="@style/CustomMaterialButton"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/deactivateButton"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="80dp"
+            android:textAllCaps="false"
+            android:text="Deactivate Employee Account"
             style="@style/CustomMaterialButton"/>
 
     </LinearLayout>

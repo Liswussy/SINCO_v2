@@ -6,19 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.compose.ui.text.capitalize
 import androidx.fragment.app.FragmentActivity
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class EmployeeFragment : Fragment() {
     private lateinit var linearlayout1: LinearLayout
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,26 +26,22 @@ class EmployeeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_employee, container, false)
 
         linearlayout1 = view.findViewById(R.id.linearlayout1)
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout)
 
         showEmployeeInformation()
+        swipeRefreshLayout.setOnRefreshListener {
+            showEmployeeInformation()
+            swipeRefreshLayout.isRefreshing = false
+        }
+
+
 
         return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        // Assuming you have a button or some other UI element that triggers the redirection
-        val redirectToActivityButton = view.findViewById<ImageButton>(R.id.ib_add_icon)
-
-        redirectToActivityButton.setOnClickListener {
-            redirectToActivity(AddNewEmployeeAccountActivity::class.java)
-        }
-
-    }
-
-    private fun redirectToActivity(activityClass: Class<out FragmentActivity>) {
+    private fun redirectToActivity(activityClass: Class<out FragmentActivity>, employeeUID: String) {
         val intent = Intent(requireContext(), activityClass)
+        intent.putExtra("employeeUID", employeeUID)
 
         val fragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fragment_container, EmployeeFragment())
@@ -58,14 +52,18 @@ class EmployeeFragment : Fragment() {
     }
 
     private fun showEmployeeInformation() {
+        linearlayout1.removeAllViews()
+
         val db = Firebase.firestore
         val docRef = db.collection("users")
         docRef.get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
+                    val employeeUID = document.id
                     val firstName = document.get("firstname") as? String ?: ""
                     val lastName = document.get("lastname") as? String ?: ""
                     val emailAddress = document.get("email") as? String ?: ""
+                    val contactNum = document.get("contactnum") as? String ?: ""
                     val role = document.get("role") as? String ?: ""
 
                     val inflater = LayoutInflater.from(requireContext())
@@ -81,9 +79,17 @@ class EmployeeFragment : Fragment() {
                     val emailtext = emailAddress
                     emailTextView.text = emailtext
 
+                    val contactTextView = customItemView.findViewById<TextView>(R.id.contactTextView)
+                    val contactNumText = contactNum
+                    contactTextView.text = contactNumText
+
                     val roleTextView = customItemView.findViewById<TextView>(R.id.roleTextView)
-                    val roleText = role
+                    val roleText = role.capitalize()
                     roleTextView.text = roleText
+
+                    customItemView.setOnClickListener{
+                        redirectToActivity(EnrollEmployeeActivity::class.java, employeeUID)
+                    }
 
                     linearlayout1.addView((customItemView))
 

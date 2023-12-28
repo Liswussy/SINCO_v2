@@ -7,16 +7,19 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.example.sinco_v2.AddNewProductActivity
+import com.example.sinco_v2.ModifyDeleteProductActivity
 import com.example.sinco_v2.R
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
 
 class ProductFragment : Fragment() {
     private lateinit var linearlayout1: LinearLayout
@@ -61,6 +64,18 @@ class ProductFragment : Fragment() {
         return view
     }
 
+    private fun redirectToActivityWithID(activityClass: Class<out FragmentActivity>, docID: String) {
+        val intent = Intent(requireContext(), activityClass)
+        intent.putExtra("docID", docID)
+
+        val fragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragment_container, ProductFragment())
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
+
+        startActivity(intent)
+    }
+
     private fun redirectToActivity(activityClass: Class<out FragmentActivity>) {
         val intent = Intent(requireContext(), activityClass)
 
@@ -80,7 +95,9 @@ class ProductFragment : Fragment() {
         productsRef.get()
             .addOnSuccessListener { documents ->
                 for (doc in documents) {
+                    val docID = doc.id
                     val productName = doc.get("prdnme") as? String ?: ""
+                    val imgSrc = doc.getString("imgSrc")
                     val category = doc.get("ctg") as? String ?: ""
                     val price = doc.get("price") as? Double ?: 0.0
                     val supplier = doc.get("supp") as? String ?: ""
@@ -91,6 +108,14 @@ class ProductFragment : Fragment() {
                     val inflater = LayoutInflater.from(requireContext())
                     val customItemView =
                         inflater.inflate(R.layout.prdouct_items, linearlayout1, false)
+
+                    val productIcon: ImageView = customItemView.findViewById(R.id.productIcon)
+                    Picasso.get()
+                        .load(imgSrc)
+                        .placeholder(R.drawable.blue_sales_icon) // Placeholder image resource
+                        .error(R.drawable.blue_sales_icon) // Error image resource (optional)
+                        .into(productIcon)
+
 
                     val productTextView =
                         customItemView.findViewById<TextView>(R.id.productTextView)
@@ -127,6 +152,10 @@ class ProductFragment : Fragment() {
                     val costText = "Cost: ${cost.toString()}"
                     costTextView.text = costText
 
+                    customItemView.setOnClickListener{
+                        redirectToActivityWithID(ModifyDeleteProductActivity::class.java, docID)
+                    }
+
                     linearlayout1.addView(customItemView)
                 }
             }
@@ -146,7 +175,9 @@ class ProductFragment : Fragment() {
         productsRef.get()
             .addOnSuccessListener { documents ->
                 for (doc in documents) {
+                    val docID = doc.id
                     val productName = doc.get("prdnme") as? String ?: ""
+                    val imgSrc = doc.getString("imgSrc")
                     val category = doc.get("ctg") as? String ?: ""
                     val price = doc.get("price") as? Double ?: 0.0
                     val supplier = doc.get("supp") as? String ?: ""
@@ -167,6 +198,13 @@ class ProductFragment : Fragment() {
                         val inflater = LayoutInflater.from(requireContext())
                         val customItemView =
                             inflater.inflate(R.layout.prdouct_items, linearlayout1, false)
+
+                        val productIcon: ImageView = customItemView.findViewById(R.id.productIcon)
+                        Picasso.get()
+                            .load(imgSrc)
+                            .placeholder(R.drawable.blue_sales_icon) // Placeholder image resource
+                            .error(R.drawable.blue_sales_icon) // Error image resource (optional)
+                            .into(productIcon)
 
                         val productTextView =
                             customItemView.findViewById<TextView>(R.id.productTextView)
@@ -195,6 +233,10 @@ class ProductFragment : Fragment() {
                         val costTextView =
                             customItemView.findViewById<TextView>(R.id.costTextView)
                         costTextView.text = "Cost: ${cost.toString()}"
+
+                        customItemView.setOnClickListener{
+                            redirectToActivityWithID(ModifyDeleteProductActivity::class.java, docID)
+                        }
 
                         linearlayout1.addView(customItemView)
                     }

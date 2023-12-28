@@ -6,10 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 
 class SplashActivity : AppCompatActivity() {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -41,21 +38,22 @@ class SplashActivity : AppCompatActivity() {
         when (userRole) {
             "manager" -> {
                 // Redirect to ManagerActivity that hosts the ManagerFragment
-                val intent = Intent(this, ManagerActivity::class.java)
+                val intent = Intent(this, MainManagerActivity::class.java)
                 startActivity(intent)
                 finish()
             }
 
-            "store staff" -> {
+            "employee" -> {
                 // Redirect to MainActivity that hosts the HomeFragment
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, MainEmployeeActivity::class.java)
                 startActivity(intent)
                 finish()
             }
 
             else -> {
                 // Redirect to a default home fragment or activity
-                val intent = Intent(this, MainActivity::class.java)
+                logoutUser()
+                val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 finish()
             }
@@ -83,6 +81,10 @@ class SplashActivity : AppCompatActivity() {
                 // Redirect to a default home fragment or activity
                 redirectToHomeActivity("")
             }
+    }
+
+    private fun logoutUser() {
+        auth.signOut()
     }
 }
 
