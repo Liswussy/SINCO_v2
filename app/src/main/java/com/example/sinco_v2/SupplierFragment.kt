@@ -13,6 +13,7 @@ import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.example.sinco_v2.AddNewSupplierActivity
+import com.example.sinco_v2.ModifyDeleteSupplierActivity
 import com.example.sinco_v2.R
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -42,6 +43,7 @@ class SupplierFragment : Fragment() {
         supplierRef.get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
+                    val supplierID = document.id
                     val supplierName = document.get("name") as? String ?: ""
                     val address = document.get("address") as? String ?: ""
                     val email = document.get("email") as? String ?: ""
@@ -65,11 +67,25 @@ class SupplierFragment : Fragment() {
                     val addressTextView = customItemView.findViewById<TextView>(R.id.addressTextView)
                     addressTextView.text = address
 
+                    customItemView.setOnClickListener{
+                        redirectToActivityWithID(ModifyDeleteSupplierActivity::class.java, supplierID)
+                    }
+
                     linearlayout2.addView(customItemView)
                 }
             }
     }
+    private fun redirectToActivityWithID(activityClass: Class<out FragmentActivity>, supplierID: String) {
+        val intent = Intent(requireContext(), activityClass)
 
+        intent.putExtra("supplierID", supplierID) // Pass the supplierID as an extra
+        val fragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragment_container, SupplierFragment())
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
+        // Start the activity directly
+        startActivity(intent)
+    }
     private fun redirectToActivity(activityClass: Class<out FragmentActivity>) {
         val intent = Intent(requireContext(), activityClass)
 
@@ -120,6 +136,7 @@ class SupplierFragment : Fragment() {
         supplierRef.get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
+                    val supplierID = document.id
                     val supplierName = document.get("name") as? String ?: ""
                     val address = document.get("address") as? String ?: ""
                     val email = document.get("email") as? String ?: ""
@@ -152,6 +169,11 @@ class SupplierFragment : Fragment() {
 
                         val addressTextView = customItemView.findViewById<TextView>(R.id.addressTextView)
                         addressTextView.text = address
+
+
+                        customItemView.setOnClickListener{
+                            redirectToActivityWithID(ModifyDeleteSupplierActivity::class.java, supplierID)
+                        }
 
                         linearlayout2.addView(customItemView)
                     }

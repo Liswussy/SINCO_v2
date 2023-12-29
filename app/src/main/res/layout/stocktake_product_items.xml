@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:id="@+id/productNameTextView"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:textColor="@color/white_primary"
+            android:text="Boondocks Session"
+            android:textSize="16sp"
+            android:gravity="center"
+            />
+        <TextView
+            android:id="@+id/expectedTextView"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:textColor="@color/white_primary"
+            android:text="0"
+            android:textSize="16sp"
+            android:gravity="center"
+            />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/countedTextView"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:textColor="@color/white_primary"
+            android:text="0"
+            android:inputType="number"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:maxLength="3"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/confirmCheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Confirm"
+                android:textColor="@color/white_primary"
+                />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

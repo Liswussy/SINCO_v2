@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ConsignorProductSalesActivity">
+
+    <LinearLayout
+        android:id="@+id/linearlayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="10dp"
+        >
+
+        <ImageButton
+            android:id="@+id/ib_back_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/baseline_arrow_back_24_yellow"
+            android:background="@android:color/transparent"
+            android:scaleType="fitXY"
+            app:layout_constraintTop_toTopOf="@+id/header_title1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/header_title1"
+            android:layout_marginStart="8dp"
+
+            />
+
+        <TextView
+            android:id="@+id/header_title1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Consignor Sales Report"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="3dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/yellow_primary"
+            android:textSize="24sp"
+            android:textStyle="bold"
+
+            />
+
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollview1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingEnd="8dp"
+        android:paddingStart="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/linearlayout1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/linearlayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|left"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearlayout1">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/spinner_border">
+                    <Spinner
+                        android:id="@+id/spinner"
+                        style="@style/CustomSpinner"
+                        android:layout_marginStart="5dp"
+                        android:layout_width="wrap_content"
+                        android:paddingStart="8dp"
+                        android:layout_height="40dp" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageButton
+                    android:id="@+id/downloadButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/download_icon_white"
+                    android:layout_marginStart="10dp"
+                    android:background="@android:color/transparent"
+                    />
+
+                <ImageButton
+                    android:id="@+id/calendar_icon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/calendar_icon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textview1"
+                    />
+
+            </LinearLayout>
+            <!--Table-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/spinner_thin_border"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="Product Name"
+                        android:textColor="@color/white_primary"
+                        android:textSize="16sp"
+                        android:gravity="center"
+                        />
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/white_primary"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="Sold"
+                        android:textColor="@color/white_primary"
+                        android:textSize="16sp"
+                        android:gravity="center"/>
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/white_primary"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="Amount"
+                        android:textColor="@color/white_primary"
+                        android:textSize="16sp"
+                        android:gravity="center"/>
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/white_primary"
+                    />
+
+                <!--Items-->
+
+
+
+                <!--Amount & Sold-->
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/white_primary"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="Total Amount"
+                        android:paddingStart="10dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/white_primary"
+                        />
+                    <TextView
+                        android:id="@+id/totalAmountTextView"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="P0.00"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:textColor="@color/white_primary"
+                        />
+
+                </LinearLayout>
+
+                <!--Amount & Sold-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="Total Sold"
+                        android:textSize="16sp"
+                        android:paddingStart="10dp"
+                        android:textColor="@color/white_primary"
+                        />
+                    <TextView
+                        android:id="@+id/totalSoldTextView"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="16sp"
+                        android:gravity="center"
+                        android:textColor="@color/white_primary"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--Table-->
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
