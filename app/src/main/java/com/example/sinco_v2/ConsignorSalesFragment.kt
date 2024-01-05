@@ -3,7 +3,6 @@ package com.example.sinco_v2
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,26 +10,27 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ConsignorSalesFragment : Fragment() {
     private lateinit var linearLayout1: LinearLayout
+    private lateinit var recyclerView: RecyclerView
     private lateinit var searchInputEditText: TextInputEditText
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private val batchSize = 10
+    private var lastDocument: DocumentSnapshot? = null
+    private var isLoading = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view =  inflater.inflate(R.layout.fragment_consignor_sales, container, false)
+        val view = inflater.inflate(R.layout.fragment_consignor_sales, container, false)
         linearLayout1 = view.findViewById(R.id.linearlayout1)
 
         showConsignorName()
@@ -46,8 +46,6 @@ class ConsignorSalesFragment : Fragment() {
             hideKeyboard()
         }
 
-
-        showConsignorName()
         handleSearch()
 
         return view
@@ -55,54 +53,65 @@ class ConsignorSalesFragment : Fragment() {
 
     private fun redirectToActivityWithID(activityClass: Class<out FragmentActivity>, consignorID: String) {
         val intent = Intent(requireContext(), activityClass)
-        intent.putExtra("consignorID",consignorID )
-
-        val fragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fragment_container, ConsignorSalesFragment())
-        fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commit()
+        intent.putExtra("consignorID", consignorID)
 
         startActivity(intent)
     }
 
-    private fun showConsignorName(){
-        val db = Firebase.firestore
-        val docRef = db.collection("suppliers")
+    private fun showConsignorName() {
+        val db = FirebaseFirestore.getInstance()
+        val docRef = getQuery(db)
+
         docRef.get()
             .addOnSuccessListener { documents ->
-                for (document in documents){
+                for (document in documents) {
                     val consignorID = document.id
-                    val consignorName = document.get("name") as? String ?: ""
+                    val consignorName = document.getString("name") ?: ""
 
                     val inflater = LayoutInflater.from(requireContext())
-                    val customTextView = inflater.inflate(R.layout.consignor_items, linearLayout1, false)
+                    val customTextView =
+                        inflater.inflate(R.layout.consignor_items, linearLayout1, false)
 
                     val consignorTextView = customTextView.findViewById<TextView>(R.id.consignorTextView)
-                    val consignorText = consignorName
-                    consignorTextView.text = consignorText
+                    consignorTextView.text = consignorName
 
-                    customTextView.setOnClickListener{
-                        redirectToActivityWithID(ConsignorProductSalesActivity::class.java,consignorID )
-
+                    customTextView.setOnClickListener {
+                        redirectToActivityWithID(
+                            ConsignorProductSalesActivity::class.java,
+                            consignorID
+                        )
                     }
                     linearLayout1.addView(customTextView)
-
+                }
+                // Update lastDocument for the next batch
+                if (documents.documents.isNotEmpty()) {
+                    lastDocument = documents.documents[documents.documents.size - 1]
                 }
 
             }
-
     }
+
+    private fun getQuery(db: FirebaseFirestore): com.google.firebase.firestore.Query {
+        val docRef = db.collection("suppliers").orderBy("name")
+
+        return if (lastDocument == null) {
+            docRef.limit(batchSize.toLong())
+        } else {
+            docRef.startAfter(lastDocument!!).limit(batchSize.toLong())
+        }
+    }
+
     private fun filterConsignorName(query: String) {
         linearLayout1.removeAllViews()
 
-        val db = Firebase.firestore
-        val docRef = db.collection("suppliers")
+        val db = FirebaseFirestore.getInstance()
+        val docRef = getQuery(db)
         val lowercaseQuery = query.toLowerCase()
 
         docRef.get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
-                    val consignorName = document.get("name") as? String ?: ""
+                    val consignorName = document.getString("name") ?: ""
                     val lowercaseConsignorName = consignorName.toLowerCase()
 
                     if (lowercaseConsignorName.contains(lowercaseQuery)) {

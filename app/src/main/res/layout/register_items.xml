@@ -8,55 +8,49 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        app:layout_goneMarginTop="10dp"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/white_primary"
-        android:layout_marginTop="10dp">
-
-        <!-- First Column (Icon) -->
+        android:layout_marginTop="10dp"
+        android:background="@drawable/spinner_thin_border"
+        android:layout_gravity="center"
+        >
         <ImageView
+            android:id="@+id/imageView"
             android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/baseline_receipt_24"
+            android:layout_height="40dp"
+            android:src="@drawable/beer_icon"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
             />
 
-        <!-- Second Column (Product Name and Amount Received) -->
         <LinearLayout
-            android:layout_width="230dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginStart="10dp">
-
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            >
             <TextView
-                android:id="@+id/tv_product_name"
+                android:id="@+id/productTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Product Name"
-                android:textSize="18sp"
-                android:textColor="@color/black_primary"
+                android:textColor="@color/white_primary"
+                android:textSize="24sp"
                 />
-
             <TextView
-                android:id="@+id/tv_amount"
+                android:id="@+id/priceTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Amount Received"
-                android:textColor="@color/black"
+                android:text="Price"
                 android:textSize="18sp"
-                android:layout_marginTop="4dp"
+                android:textColor="@color/white_primary"
                 />
+
+
         </LinearLayout>
 
-        <!-- Third Column (Date) -->
-        <TextView
-            android:id="@+id/tv_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Date"
-            android:textSize="14sp"
-            android:textColor="@color/black_primary"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

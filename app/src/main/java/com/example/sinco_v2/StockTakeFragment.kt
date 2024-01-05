@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -19,7 +20,7 @@ import com.google.firebase.ktx.Firebase
 
 class StockTakeFragment : Fragment() {
 
-    private lateinit var linearLayout : LinearLayout
+    private lateinit var linearLayout: LinearLayout
     private val supplierIdList = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,13 +63,22 @@ class StockTakeFragment : Fragment() {
 
                 spinner?.let {
                     val adapter =
-                        ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, suppliersNames)
+                        ArrayAdapter(
+                            requireContext(),
+                            android.R.layout.simple_spinner_item,
+                            suppliersNames
+                        )
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     it.adapter = adapter
                 }
 
                 spinner?.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
                         val supplierDocId = supplierIdList[position]
 
                         Toast.makeText(requireContext(), supplierDocId, Toast.LENGTH_SHORT).show()
@@ -80,7 +90,11 @@ class StockTakeFragment : Fragment() {
                                 setupSuppliersProducts(document)
                             }
                             .addOnFailureListener {
-                                Toast.makeText(requireContext(), "Database Error", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Database Error",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                     }
 
@@ -134,7 +148,31 @@ class StockTakeFragment : Fragment() {
         }
     }
 
+    private fun updateProductQuantity(productId: String, newQuantity: Int) {
+        val db = Firebase.firestore
+        val productRef = db.collection("products").document(productId)
 
+        productRef
+            .update("qnty", newQuantity)
+            .addOnSuccessListener {
+                // Update successful
+                Toast.makeText(
+                    requireContext(),
+                    "Product quantity updated successfully",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            .addOnFailureListener { e ->
+                // Handle errors
+                Toast.makeText(
+                    requireContext(),
+                    "Failed to update product quantity",
+                    Toast.LENGTH_SHORT
+                ).show()
+                println("Error updating product quantity: $e")
+            }
+    }
 
+    
 
 }

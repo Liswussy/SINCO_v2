@@ -37,13 +37,13 @@
             android:id="@+id/tabAllSales"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Inventory" />
+            android:text="New Returned " />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabConsignors"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Stock Take" />
+            android:text="Returned Report" />
 
     </com.google.android.material.tabs.TabLayout>
 

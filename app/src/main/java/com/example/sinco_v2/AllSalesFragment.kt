@@ -28,9 +28,14 @@ import java.util.Locale
 class AllSalesFragment : Fragment() {
     private lateinit var calendarButton : ImageButton
     private lateinit var linearlayout2: LinearLayout
+
     private lateinit var placeholderTextView: TextView
     var canGetData = true
 
+    private lateinit var totalLayout : LinearLayout
+    var totalAmountSold = 0.0
+    var totalItemSold = 0
+    var totalDiscountAmount = 0.0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,6 +45,7 @@ class AllSalesFragment : Fragment() {
 
         linearlayout2 = view.findViewById(R.id.linearlayout2)
         placeholderTextView = view.findViewById(R.id.placeholderTextView)
+        totalLayout = view.findViewById(R.id.totalLayout)
 
         val calendar1 = Calendar.getInstance()
         val currentDate1 = calendar1.time
@@ -190,6 +196,7 @@ class AllSalesFragment : Fragment() {
         }
 
         removeAllViewsExceptFirst(linearlayout2)
+        resetTotalValues()
 
         // convert dates to firebase timestamps
         val startDateTimestamp = Timestamp(startOfDay(startDate))
@@ -204,8 +211,11 @@ class AllSalesFragment : Fragment() {
             .get()
             .addOnSuccessListener { documents ->
                 removeAllViewsExceptFirst(linearlayout2)
+
+
                 if (documents.isEmpty){
                     placeholderTextView.visibility = View.VISIBLE
+
                 } else {
                     placeholderTextView.visibility = View.GONE
                 }
@@ -215,6 +225,11 @@ class AllSalesFragment : Fragment() {
                     val products = document.get("products") as? ArrayList<Map<String, Any>> ?: ArrayList()
                     val timestamp = document.get("timestamp") as? Timestamp ?: Timestamp.now()
                     val total = document.get("total") as? Double ?: 0.0
+                    val discount = document.get("discountAmount") as? Double ?: 0.0
+
+                    totalItemSold += products.size
+                    totalDiscountAmount += discount
+                    totalAmountSold += total
 
                     val inflater = LayoutInflater.from(requireContext())
                     val customItemView = inflater.inflate(R.layout.all_sales_items, linearlayout2, false)
@@ -245,6 +260,7 @@ class AllSalesFragment : Fragment() {
                     val totalAmountText = "Php ${formatDoubleToTwoDecimalPlaces(total)}"
                     totalAmountTextView.text = totalAmountText
 
+
                     customItemView.setOnClickListener{
                         showCustomDialog(document)
                     }
@@ -252,16 +268,26 @@ class AllSalesFragment : Fragment() {
                     linearlayout2.addView(customItemView)
                 }
 
+                val totalItemsSoldTextView = view?.findViewById<TextView>(R.id.totalProductSoldTextView)
+                totalItemsSoldTextView?.text = totalItemSold.toString()
+
+                val totalAmountSoldTextView = view?.findViewById<TextView>(R.id.totalAmountSoldTextView)
+                totalAmountSoldTextView?.text =  "P ${formatDoubleToTwoDecimalPlaces(totalAmountSold)}"
+
+                val totalDiscountAmountSoldTextView = view?.findViewById<TextView>(R.id.totalDiscountAmountSoldTextView)
+                totalDiscountAmountSoldTextView?.text =  "P ${formatDoubleToTwoDecimalPlaces(totalDiscountAmount)}"
                 canGetData = true
             }
 
     }
 
     fun showCustomDialog(document: QueryDocumentSnapshot) {
+
         val paymentMethod = document.get("paymentMethod") as? String ?: ""
         val products = document.get("products") as? ArrayList<Map<String, Any>> ?: ArrayList()
         val timestamp = document.get("timestamp") as? Timestamp ?: Timestamp.now()
         val total = document.get("total") as? Double ?: 0.0
+        val discount = document.get("discountAmount") as? Double ?: 0.0
 
         val view = LayoutInflater.from(requireContext()).inflate(R.layout.custom_dialog_orders, null)
         val builder = MaterialAlertDialogBuilder(requireContext())
@@ -275,8 +301,12 @@ class AllSalesFragment : Fragment() {
         paymentTypeTextView.text = paymentTypeText
 
         val totalAmountTextView = view.findViewById<TextView>(R.id.totalAmountTextView)
-        val totalAmountText = "Php ${formatDoubleToTwoDecimalPlaces(total)}"
+        val totalAmountText = "Total : Php ${formatDoubleToTwoDecimalPlaces(total)}"
         totalAmountTextView.text = totalAmountText
+
+        val DiscountTextView = view.findViewById<TextView>(R.id.DiscountTextView)
+        val DiscountText = "Discount : Php ${formatDoubleToTwoDecimalPlaces(discount)}"
+        DiscountTextView.text = DiscountText
 
         val productsTextView = view.findViewById<TextView>(R.id.productsTextView)
         var productsText = ""
@@ -297,6 +327,12 @@ class AllSalesFragment : Fragment() {
 
         val dialog = builder.create()
         dialog.show()
+    }
+
+    private fun resetTotalValues() {
+        totalItemSold = 0
+        totalDiscountAmount = 0.0
+        totalAmountSold = 0.0
     }
 
     fun removeAllViewsExceptFirst(layout: ViewGroup) {

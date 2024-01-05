@@ -4,6 +4,7 @@ import android.content.ContentValues
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import com.google.android.material.textfield.TextInputEditText
@@ -39,8 +40,8 @@ class ModifyDeleteSupplierActivity : AppCompatActivity() {
                     if (document != null) {
                         val name = document.getString("name")
                         val email = document.getString("email")
-                        val contact= document.get("contactnum").toString()
-                        val address= document.getString("address")
+                        val contact = document.get("contactnum").toString()
+                        val address = document.getString("address")
 
                         supplierName.setText(name)
                         supplierEmail.setText(email)
@@ -57,6 +58,74 @@ class ModifyDeleteSupplierActivity : AppCompatActivity() {
                 }
         }
 
+        val buttonUpdate = findViewById<Button>(R.id.btn_update)
+        buttonUpdate.setOnClickListener {
+            updateSupplierDatabase()
+        }
+
     }
 
+    private fun updateSupplierDatabase() {
+        val updatedName = supplierName.text.toString()
+        val updatedEmail = supplierEmail.text.toString()
+        val updatedContact = supplierContact.text.toString()
+        val updatedAddress = supplierAddress.text.toString()
+
+        val supplierID = intent.getStringExtra("supplierID")
+
+        if (supplierID != null) {
+            val docRef = db.collection("suppliers").document(supplierID)
+
+            // Create a map with the updated data
+            val updatedData = mapOf(
+                "name" to updatedName,
+                "email" to updatedEmail,
+                "contactnum" to updatedContact,
+                "address" to updatedAddress
+            )
+
+            // Update the document in Firestore
+//            docRef.update(updatedData)
+//                .addOnSuccessListener {
+//                    updateProductsSupplierInfo(supplierID, updatedDataSupplier)
+//                    Log.d(ContentValues.TAG, "DocumentSnapshot successfully updated!")
+//                    // You can add additional actions after a successful update if needed
+//                }
+//                .addOnFailureListener { e ->
+//                    Log.w(ContentValues.TAG, "Error updating document", e)
+//                    // Handle the error
+//                }
+        }
+    }
+
+    private fun updateProductsSupplierInfo(
+        supplierID: String,
+        updatedDataSupplier: Map<String, Any>
+    ) {
+        val productsRef = db.collection("products").whereEqualTo("supplier", supplierID)
+
+        productsRef.get()
+            .addOnSuccessListener { products ->
+                for (product in products) {
+                    val productID = product.id
+                    val docRefProduct = db.collection("products").document(productID)
+
+                    // Update the supplier information in the products collection
+                    docRefProduct.update("supp", updatedDataSupplier)
+                        .addOnSuccessListener {
+                            Log.d(ContentValues.TAG, "Product Document successfully updated!")
+                            // You can add additional actions after a successful product update if needed
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w(ContentValues.TAG, "Error updating product document", e)
+                            // Handle the error
+                        }
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.w(ContentValues.TAG, "Error getting products associated with the supplier", e)
+                // Handle the error
+            }
+
+    }
 }

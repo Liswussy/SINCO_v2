@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    tools:context=".EmployeeHomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -70,7 +70,6 @@
             android:layout_height="170dp"
             android:layout_marginTop="20dp"
             android:orientation="vertical"
-            android:background="@color/yellow_primary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textview1"
@@ -82,20 +81,21 @@
                 android:layout_marginStart="5dp"
                 android:text="Total Customers:"
                 android:textSize="22sp"
-                android:textColor="@color/black_primary"
+                android:textColor="@color/white_primary"
                 />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginTop="10dp"
                 >
 
                 <ImageView
                     android:layout_width="45dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="5dp"
-                    android:src="@drawable/customer_icon"
+                    android:src="@drawable/group_icon_white"
                     android:scaleType="fitXY"
                     />
                 <TextView
@@ -105,7 +105,7 @@
                     android:paddingTop="4dp"
                     android:paddingStart="8dp"
                     android:text="0"
-                    android:textColor="@color/black_primary"
+                    android:textColor="@color/white_primary"
                     android:textSize="24sp"
                     />
 
@@ -118,20 +118,20 @@
                 android:layout_marginStart="5dp"
                 android:text="Total Amount:"
                 android:textSize="22sp"
-                android:textColor="@color/black_primary"
+                android:textColor="@color/white_primary"
                 />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginTop="10dp"
                 >
-
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="5dp"
-                    android:src="@drawable/cashier_icon"
+                    android:src="@drawable/cashier_icon_white"
                     android:scaleType="fitXY"
                     />
                 <TextView
@@ -142,7 +142,7 @@
                     android:paddingStart="8dp"
                     android:text="Php 0.00"
                     android:textSize="24sp"
-                    android:textColor="@color/black_primary"
+                    android:textColor="@color/white_primary"
                     />
 
             </LinearLayout>
@@ -162,12 +162,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearlayout2"
             />
+
         <LinearLayout
             android:id="@+id/linearlayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@color/white_primary"
+            android:background="@drawable/top_bottom_border"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textview2"
@@ -175,73 +176,81 @@
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="100dp">
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/scrollContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
 
 
             </HorizontalScrollView>
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textview3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:text="Recent Orders"
-            android:textSize="20sp"
-            android:textColor="@color/white_primary"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearlayout3"
-            />
+<!--        <TextView-->
+<!--            android:id="@+id/textview3"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="20dp"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:text="Recent Orders"-->
+<!--            android:textSize="20sp"-->
+<!--            android:textColor="@color/white_primary"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/linearlayout3"-->
+<!--            />-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:orientation="vertical"
-            android:layout_marginTop="10dp"
-            android:background="@color/white_primary"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textview3"
-            >
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="150dp"-->
+<!--            android:orientation="vertical"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:background="@drawable/spinner_thin_border"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/textview3"-->
+<!--            >-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:layout_height="wrap_content"
-                    android:text="Customer"
-                    android:textColor="@color/black_primary"
-                    />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:layout_height="wrap_content"
-                    android:text="Date"
-                    android:textColor="@color/black_primary"
-                    />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:layout_height="wrap_content"
-                    android:text="Paid"
-                    android:textColor="@color/black_primary"
-                    />
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                >-->
+<!--                <TextView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:gravity="center"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Customer"-->
+<!--                    android:textColor="@color/white_primary"-->
+<!--                    />-->
+<!--                <TextView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:gravity="center"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Date"-->
+<!--                    android:textColor="@color/black_primary"-->
+<!--                    />-->
+<!--                <TextView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:gravity="center"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Paid"-->
+<!--                    android:textColor="@color/black_primary"-->
+<!--                    />-->
 
-            </LinearLayout>
-
-
+<!--            </LinearLayout>-->
 
 
 
-        </LinearLayout>
+
+
+<!--        </LinearLayout>-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

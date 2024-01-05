@@ -40,7 +40,7 @@ class MainEmployeeActivity : AppCompatActivity() {
         bottomNavigation = findViewById(R.id.bottom_navigation)
         bottomNavigation.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.home -> replaceFragment(HomeFragment())
+                R.id.home -> replaceFragment(EmployeeHomeFragment())
                 R.id.register -> replaceFragment(RegisterFragment())
                 R.id.delivery -> {
                     if (userRole.equals("manager", ignoreCase = true) || userRole.equals("Auditor", ignoreCase = true)){

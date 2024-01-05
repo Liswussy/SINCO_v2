@@ -30,11 +30,7 @@ class ConsignorProductSalesActivity : AppCompatActivity() {
         spinner.adapter = adapter
 
         val consignorID = intent.getStringExtra("consignorID")
-
-
-
+        
     }
-
-
 
 }
