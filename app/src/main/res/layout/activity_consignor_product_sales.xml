@@ -179,7 +179,24 @@
                     android:background="@color/white_primary"
                     />
 
+                <LinearLayout
+                    android:id="@+id/linearlayoutTemplate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/placeHolderTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/white_primary"
+                        android:text="There are no Sales Currently for this consignor"/>
+                </LinearLayout>
+
+
                 <!--Items-->
+
 
 
 

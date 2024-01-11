@@ -1,6 +1,7 @@
 package com.example.sinco_v2
 
 import android.os.Bundle
+import android.os.Environment
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,12 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import org.apache.poi.ss.usermodel.Row
+import org.apache.poi.ss.usermodel.Sheet
+import org.apache.poi.ss.usermodel.Workbook
+import org.apache.poi.xssf.usermodel.XSSFWorkbook
+import java.io.File
+import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -185,6 +192,12 @@ class AllSalesFragment : Fragment() {
         }
         datePicker.addOnDismissListener{
             canTrigger = true
+        }
+
+        val downloadButton = view.findViewById<ImageButton>(R.id.downloadButton)
+        downloadButton.setOnClickListener{
+            generateExcelFile(SalesData)
+
         }
 
         return view
@@ -376,6 +389,37 @@ class AllSalesFragment : Fragment() {
         calendar.set(Calendar.MILLISECOND, 999)
         return calendar.time
     }
+    fun generateExcelFile(dataList: List<SalesData>) {
+        val workbook: Workbook = XSSFWorkbook()
+        val sheet: Sheet = workbook.createSheet("SalesData")
+
+        // Create header row
+        val headerRow: Row = sheet.createRow(0)
+        headerRow.createCell(0).setCellValue("Order ID")
+        headerRow.createCell(1).setCellValue("Date Time")
+        headerRow.createCell(2).setCellValue("Payment Type")
+        headerRow.createCell(3).setCellValue("Total Amount")
+        headerRow.createCell(4).setCellValue("Discount Amount")
+
+        // Fill data rows
+        for ((index, data) in dataList.withIndex()) {
+            val row: Row = sheet.createRow(index + 1)
+            row.createCell(0).setCellValue(data.orderId)
+            row.createCell(1).setCellValue(formatDate(data.timestamp.toDate()))
+            row.createCell(2).setCellValue(data.paymentMethod)
+            row.createCell(3).setCellValue(data.total)
+            row.createCell(4).setCellValue(data.discountAmount)
+        }
+
+        // Save the workbook to a file
+        val fileName = "SalesData.xlsx"
+        val filePath = File(Environment.getExternalStorageDirectory(), fileName)
+        val fileOutputStream = FileOutputStream(filePath)
+        workbook.write(fileOutputStream)
+        fileOutputStream.close()
+
+    }
 
 
-}
+
+

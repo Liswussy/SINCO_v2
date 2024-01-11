@@ -55,6 +55,7 @@ class NewDeliveryFragment : Fragment() {
         btn_confirm.setOnClickListener {
 
             updateProductQuantity()
+            storeDeliveryReport()
         }
 
         return view
@@ -314,6 +315,35 @@ class NewDeliveryFragment : Fragment() {
             }
         }
     }
+
+    private fun storeDeliveryReport() {
+        // Get the current timestamp for the delivery report
+        val timestamp = FieldValue.serverTimestamp()
+
+        // Create a map to store the delivery report data
+        val deliveryReportData = hashMapOf(
+            "timestamp" to timestamp,
+            "consignorID" to consignorID,
+            "selectedProducts" to selectedProducts,
+            // Add other relevant data (e.g., delivery date, etc.) as needed
+        )
+
+        // Get a reference to the delivery_reports collection
+        val deliveryReportsRef = db.collection("delivery_reports")
+
+        // Add the delivery report data to the collection
+        deliveryReportsRef.add(deliveryReportData)
+            .addOnSuccessListener { documentReference ->
+                // Handle the successful addition of the delivery report
+                val deliveryReportId = documentReference.id
+                Toast.makeText(requireContext(), "Delivery report stored successfully with ID: $deliveryReportId", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                // Handle any errors that occurred during the addition of the delivery report
+                Toast.makeText(requireContext(), "Error storing delivery report: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
 
 
 }

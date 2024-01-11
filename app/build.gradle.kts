@@ -57,6 +57,8 @@ dependencies {
     }
     implementation("com.google.zxing:core:3.3.0")
     implementation("com.squareup.picasso:picasso:2.71828")
+    implementation ("org.apache.poi:poi:4.1.2")
+    implementation ("org.apache.poi:poi-ooxml:4.1.2")
     implementation ("com.itextpdf:itextpdf:5.5.13")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("com.google.android.material:material:1.5.0")

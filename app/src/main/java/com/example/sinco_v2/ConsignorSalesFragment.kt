@@ -60,74 +60,107 @@ class ConsignorSalesFragment : Fragment() {
 
     private fun showConsignorName() {
         val db = FirebaseFirestore.getInstance()
-        val docRef = getQuery(db)
+        val collectionReference = db.collection("products")
 
-        docRef.get()
+        val supplierMap = mutableMapOf<String, MutableList<String>>()
+
+        collectionReference.get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
-                    val consignorID = document.id
-                    val consignorName = document.getString("name") ?: ""
+                    val consignorName = document.getString("supp")
+
+                    if (consignorName != null) {
+                        if (!supplierMap.containsKey(consignorName)) {
+                            supplierMap[consignorName] = mutableListOf()
+                        }
+
+                        supplierMap[consignorName]?.add(document.id)
+                    }
+                }
+
+                // Filter unique consignor names
+                val uniqueConsignorNames = supplierMap.keys.toList()
+
+                for (consignorName in uniqueConsignorNames) {
+                    val documentIds = supplierMap[consignorName]!!
 
                     val inflater = LayoutInflater.from(requireContext())
                     val customTextView =
                         inflater.inflate(R.layout.consignor_items, linearLayout1, false)
 
-                    val consignorTextView = customTextView.findViewById<TextView>(R.id.consignorTextView)
+                    val consignorTextView =
+                        customTextView.findViewById<TextView>(R.id.consignorTextView)
                     consignorTextView.text = consignorName
 
                     customTextView.setOnClickListener {
                         redirectToActivityWithID(
                             ConsignorProductSalesActivity::class.java,
-                            consignorID
+                            documentIds[0] // Assuming you want to pass the first document ID
                         )
                     }
                     linearLayout1.addView(customTextView)
                 }
-                // Update lastDocument for the next batch
-                if (documents.documents.isNotEmpty()) {
-                    lastDocument = documents.documents[documents.documents.size - 1]
-                }
 
+                // Update lastDocument for the next batch
+            }
+            .addOnFailureListener { exception ->
+                // Handle errors here
             }
     }
 
-    private fun getQuery(db: FirebaseFirestore): com.google.firebase.firestore.Query {
-        val docRef = db.collection("suppliers").orderBy("name")
 
-        return if (lastDocument == null) {
-            docRef.limit(batchSize.toLong())
-        } else {
-            docRef.startAfter(lastDocument!!).limit(batchSize.toLong())
-        }
-    }
+
+
 
     private fun filterConsignorName(query: String) {
         linearLayout1.removeAllViews()
 
         val db = FirebaseFirestore.getInstance()
-        val docRef = getQuery(db)
-        val lowercaseQuery = query.toLowerCase()
+        val collectionReference = db.collection("products")
 
-        docRef.get()
+        val supplierMap = mutableMapOf<String, MutableList<String>>()
+
+        collectionReference.get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
-                    val consignorName = document.getString("name") ?: ""
+                    val consignorName = document.getString("supp") ?: ""
                     val lowercaseConsignorName = consignorName.toLowerCase()
 
-                    if (lowercaseConsignorName.contains(lowercaseQuery)) {
-                        val inflater = LayoutInflater.from(requireContext())
-                        val customTextView =
-                            inflater.inflate(R.layout.consignor_items, linearLayout1, false)
+                    if (lowercaseConsignorName.contains(query.toLowerCase())) {
+                        if (!supplierMap.containsKey(consignorName)) {
+                            supplierMap[consignorName] = mutableListOf()
+                        }
 
-                        val consignorTextView =
-                            customTextView.findViewById<TextView>(R.id.consignorTextView)
-                        consignorTextView.text = consignorName
-
-                        linearLayout1.addView(customTextView)
+                        supplierMap[consignorName]?.add(document.id)
                     }
                 }
+
+                // Add views after filtering
+                for ((consignorName, documentIds) in supplierMap) {
+                    val inflater = LayoutInflater.from(requireContext())
+                    val customTextView =
+                        inflater.inflate(R.layout.consignor_items, linearLayout1, false)
+
+                    val consignorTextView =
+                        customTextView.findViewById<TextView>(R.id.consignorTextView)
+                    consignorTextView.text = consignorName
+
+                    customTextView.setOnClickListener {
+                        redirectToActivityWithID(
+                            ConsignorProductSalesActivity::class.java,
+                            documentIds[0] // Assuming you want to pass the first document ID
+                        )
+                    }
+
+                    linearLayout1.addView(customTextView)
+                }
+            }
+            .addOnFailureListener { exception ->
+                // Handle errors here
             }
     }
+
+
 
     private fun handleSearch() {
         searchInputEditText.setOnEditorActionListener { _, actionId, _ ->
