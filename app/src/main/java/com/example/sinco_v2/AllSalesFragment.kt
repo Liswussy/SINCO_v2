@@ -33,13 +33,13 @@ import java.util.Locale
 
 
 class AllSalesFragment : Fragment() {
-    private lateinit var calendarButton : ImageButton
+    private lateinit var calendarButton: ImageButton
     private lateinit var linearlayout2: LinearLayout
 
     private lateinit var placeholderTextView: TextView
     var canGetData = true
 
-    private lateinit var totalLayout : LinearLayout
+    private lateinit var totalLayout: LinearLayout
     var totalAmountSold = 0.0
     var totalItemSold = 0
     var totalDiscountAmount = 0.0
@@ -68,7 +68,12 @@ class AllSalesFragment : Fragment() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
         spinner.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
 
                 val selectedItem = parent?.getItemAtPosition(position).toString()
 
@@ -173,8 +178,8 @@ class AllSalesFragment : Fragment() {
 
         calendarButton = view.findViewById(R.id.calendar_icon)
         var canTrigger = true
-        calendarButton.setOnClickListener{
-            if (canTrigger){
+        calendarButton.setOnClickListener {
+            if (canTrigger) {
                 datePicker.show(parentFragmentManager, datePicker.toString())
                 canTrigger = false
             }
@@ -190,21 +195,21 @@ class AllSalesFragment : Fragment() {
 
             canTrigger = true
         }
-        datePicker.addOnDismissListener{
+        datePicker.addOnDismissListener {
             canTrigger = true
         }
 
         val downloadButton = view.findViewById<ImageButton>(R.id.downloadButton)
-        downloadButton.setOnClickListener{
-            generateExcelFile(SalesData)
+        downloadButton.setOnClickListener {
+//            generateExcelFile(SalesData)
 
         }
 
         return view
     }
 
-    private fun getTransactionHistoryData(startDate: Date, endDate: Date){
-        if (!canGetData){
+    private fun getTransactionHistoryData(startDate: Date, endDate: Date) {
+        if (!canGetData) {
             return
         }
 
@@ -226,7 +231,7 @@ class AllSalesFragment : Fragment() {
                 removeAllViewsExceptFirst(linearlayout2)
 
 
-                if (documents.isEmpty){
+                if (documents.isEmpty) {
                     placeholderTextView.visibility = View.VISIBLE
 
                 } else {
@@ -235,7 +240,8 @@ class AllSalesFragment : Fragment() {
 
                 for (document in documents) {
                     val paymentMethod = document.get("paymentMethod") as? String ?: ""
-                    val products = document.get("products") as? ArrayList<Map<String, Any>> ?: ArrayList()
+                    val products =
+                        document.get("products") as? ArrayList<Map<String, Any>> ?: ArrayList()
                     val timestamp = document.get("timestamp") as? Timestamp ?: Timestamp.now()
                     val total = document.get("total") as? Double ?: 0.0
                     val discount = document.get("discountAmount") as? Double ?: 0.0
@@ -245,50 +251,61 @@ class AllSalesFragment : Fragment() {
                     totalAmountSold += total
 
                     val inflater = LayoutInflater.from(requireContext())
-                    val customItemView = inflater.inflate(R.layout.all_sales_items, linearlayout2, false)
+                    val customItemView =
+                        inflater.inflate(R.layout.all_sales_items, linearlayout2, false)
 
-                    val itemNumTextView = customItemView.findViewById<TextView>(R.id.itemNumTextView)
+                    val itemNumTextView =
+                        customItemView.findViewById<TextView>(R.id.itemNumTextView)
                     val numOfProducts = products.size
                     var itemNumText = ""
-                    itemNumText = if (products.size == 1){
+                    itemNumText = if (products.size == 1) {
                         "$numOfProducts Item"
                     } else {
                         "$numOfProducts Items"
                     }
                     itemNumTextView.text = itemNumText
 
-                    val orderIDTextView = customItemView.findViewById<TextView>(R.id.orderIDTextView)
+                    val orderIDTextView =
+                        customItemView.findViewById<TextView>(R.id.orderIDTextView)
                     val orderIDText = "Order ID:\n${document.id}"
                     orderIDTextView.text = orderIDText
 
-                    val dateTimeTextView = customItemView.findViewById<TextView>(R.id.dateTimeTextView)
+                    val dateTimeTextView =
+                        customItemView.findViewById<TextView>(R.id.dateTimeTextView)
                     val dateTimeText = formatDate(timestamp.toDate())
                     dateTimeTextView.text = dateTimeText
 
-                    val paymentTypeTextView = customItemView.findViewById<TextView>(R.id.paymentTypeTextView)
+                    val paymentTypeTextView =
+                        customItemView.findViewById<TextView>(R.id.paymentTypeTextView)
                     val paymentTypeText = "$paymentMethod Payment"
                     paymentTypeTextView.text = paymentTypeText
 
-                    val totalAmountTextView = customItemView.findViewById<TextView>(R.id.totalAmountTextView)
+                    val totalAmountTextView =
+                        customItemView.findViewById<TextView>(R.id.totalAmountTextView)
                     val totalAmountText = "Php ${formatDoubleToTwoDecimalPlaces(total)}"
                     totalAmountTextView.text = totalAmountText
 
 
-                    customItemView.setOnClickListener{
+                    customItemView.setOnClickListener {
                         showCustomDialog(document)
                     }
 
                     linearlayout2.addView(customItemView)
                 }
 
-                val totalItemsSoldTextView = view?.findViewById<TextView>(R.id.totalProductSoldTextView)
+                val totalItemsSoldTextView =
+                    view?.findViewById<TextView>(R.id.totalProductSoldTextView)
                 totalItemsSoldTextView?.text = totalItemSold.toString()
 
-                val totalAmountSoldTextView = view?.findViewById<TextView>(R.id.totalAmountSoldTextView)
-                totalAmountSoldTextView?.text =  "P ${formatDoubleToTwoDecimalPlaces(totalAmountSold)}"
+                val totalAmountSoldTextView =
+                    view?.findViewById<TextView>(R.id.totalAmountSoldTextView)
+                totalAmountSoldTextView?.text =
+                    "P ${formatDoubleToTwoDecimalPlaces(totalAmountSold)}"
 
-                val totalDiscountAmountSoldTextView = view?.findViewById<TextView>(R.id.totalDiscountAmountSoldTextView)
-                totalDiscountAmountSoldTextView?.text =  "P ${formatDoubleToTwoDecimalPlaces(totalDiscountAmount)}"
+                val totalDiscountAmountSoldTextView =
+                    view?.findViewById<TextView>(R.id.totalDiscountAmountSoldTextView)
+                totalDiscountAmountSoldTextView?.text =
+                    "P ${formatDoubleToTwoDecimalPlaces(totalDiscountAmount)}"
                 canGetData = true
             }
 
@@ -302,7 +319,8 @@ class AllSalesFragment : Fragment() {
         val total = document.get("total") as? Double ?: 0.0
         val discount = document.get("discountAmount") as? Double ?: 0.0
 
-        val view = LayoutInflater.from(requireContext()).inflate(R.layout.custom_dialog_orders, null)
+        val view =
+            LayoutInflater.from(requireContext()).inflate(R.layout.custom_dialog_orders, null)
         val builder = MaterialAlertDialogBuilder(requireContext())
 
         val dateTimeTextView = view.findViewById<TextView>(R.id.dateTimeTextView)
@@ -323,7 +341,7 @@ class AllSalesFragment : Fragment() {
 
         val productsTextView = view.findViewById<TextView>(R.id.productsTextView)
         var productsText = ""
-        for (product in products){
+        for (product in products) {
             val price = product["price"] as Double
             val name = product["productName"] as String
             val quantity = product["quantity"]
@@ -389,36 +407,8 @@ class AllSalesFragment : Fragment() {
         calendar.set(Calendar.MILLISECOND, 999)
         return calendar.time
     }
-    fun generateExcelFile(dataList: List<SalesData>) {
-        val workbook: Workbook = XSSFWorkbook()
-        val sheet: Sheet = workbook.createSheet("SalesData")
 
-        // Create header row
-        val headerRow: Row = sheet.createRow(0)
-        headerRow.createCell(0).setCellValue("Order ID")
-        headerRow.createCell(1).setCellValue("Date Time")
-        headerRow.createCell(2).setCellValue("Payment Type")
-        headerRow.createCell(3).setCellValue("Total Amount")
-        headerRow.createCell(4).setCellValue("Discount Amount")
-
-        // Fill data rows
-        for ((index, data) in dataList.withIndex()) {
-            val row: Row = sheet.createRow(index + 1)
-            row.createCell(0).setCellValue(data.orderId)
-            row.createCell(1).setCellValue(formatDate(data.timestamp.toDate()))
-            row.createCell(2).setCellValue(data.paymentMethod)
-            row.createCell(3).setCellValue(data.total)
-            row.createCell(4).setCellValue(data.discountAmount)
-        }
-
-        // Save the workbook to a file
-        val fileName = "SalesData.xlsx"
-        val filePath = File(Environment.getExternalStorageDirectory(), fileName)
-        val fileOutputStream = FileOutputStream(filePath)
-        workbook.write(fileOutputStream)
-        fileOutputStream.close()
-
-    }
+}
 
 
 

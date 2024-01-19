@@ -2,6 +2,7 @@ package com.example.sinco_v2
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,6 @@ import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.QuerySnapshot
 import java.util.Calendar
 import java.util.Date
 
@@ -27,9 +27,7 @@ class ConsignorProductSalesActivity : AppCompatActivity() {
     private lateinit var calendarButton: ImageButton
     private var totalItemSold = 0
     private var totalAmountSold = 0.0
-    private var totalDiscountAmount = 0.0
 
-    var canGetData = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,15 +68,17 @@ class ConsignorProductSalesActivity : AppCompatActivity() {
                 val calendar = Calendar.getInstance()
                 val currentDate = calendar.time
 
+                removeAllViewsExceptFirst(linearlayoutTemplate)
+
                 when (selectedItem) {
                     "Today" -> {
-                        getConsignorTransactionData( currentDate, currentDate)
+                        getConsignorTransactionData(currentDate, currentDate)
                     }
 
                     "Yesterday" -> {
                         calendar.add(Calendar.DAY_OF_YEAR, -1)
                         val yesterday = calendar.time
-                        getConsignorTransactionData( yesterday, yesterday)
+                        getConsignorTransactionData(yesterday, yesterday)
                     }
 
                     "Last 7 Days" -> {
@@ -99,7 +99,7 @@ class ConsignorProductSalesActivity : AppCompatActivity() {
                         calendar.add(Calendar.MONTH, 1)
                         calendar.add(Calendar.DAY_OF_MONTH, -1)
                         val lastDayOfMonth = calendar.time
-                        getConsignorTransactionData( firstDayOfMonth, lastDayOfMonth)
+                        getConsignorTransactionData(firstDayOfMonth, lastDayOfMonth)
                     }
 
                     "Last Month" -> {
@@ -114,6 +114,7 @@ class ConsignorProductSalesActivity : AppCompatActivity() {
                             firstDayOfLastMonth,
                             lastDayOfLastMonth
                         )
+
                     }
 
                     "This Year" -> {
@@ -123,7 +124,8 @@ class ConsignorProductSalesActivity : AppCompatActivity() {
                         calendar.add(Calendar.YEAR, 1)
                         calendar.add(Calendar.DAY_OF_MONTH, -1)
                         val lastDayOfYear = calendar.time
-                        getConsignorTransactionData( firstDayOfYear, lastDayOfYear)
+                        getConsignorTransactionData(firstDayOfYear, lastDayOfYear)
+
                     }
                 }
             }
@@ -173,10 +175,14 @@ class ConsignorProductSalesActivity : AppCompatActivity() {
         var canTrigger = true
         calendarButton.setOnClickListener {
             if (canTrigger) {
+                // Remove views when the calendar icon is clicked
+                removeAllViewsExceptFirst(linearlayoutTemplate)
+
                 datePicker.show(supportFragmentManager, datePicker.toString())
                 canTrigger = false
             }
         }
+
         datePicker.addOnPositiveButtonClickListener { selection ->
             val startDate = selection.first
             val endDate = selection.second
@@ -194,79 +200,108 @@ class ConsignorProductSalesActivity : AppCompatActivity() {
     }
 
     private fun getConsignorTransactionData(startOfDay: Date, endOfDay: Date) {
-        // Get the consignorID from the intent
+
+        // val suppliersCollection = db.collection("suppliers")
         val consignorID = intent.getStringExtra("consignorID")
-
-        // Get the document IDs from the intent
-        val documentIds = intent.getStringArrayListExtra("consignorID")
-
-        // Initialize Firestore
         val db = FirebaseFirestore.getInstance()
 
-        // Initialize a variable to store the total cost
-        var totalCost = 0.0
+        // Reference to the "orders" collection
+        val ordersCollection = db.collection("orders")
 
-        // Query the "orders" collection to retrieve documents that match the criteria
-        if (documentIds != null && consignorID != null) {
-            db.collection("orders")
+        // Query to filter data based on the consignorID and date range
+        val query = consignorID?.let {
+            ordersCollection
+                .whereArrayContains("consignorID", it)
                 .whereGreaterThanOrEqualTo("timestamp", startOfDay)
                 .whereLessThanOrEqualTo("timestamp", endOfDay)
-                .orderBy("timestamp", Query.Direction.DESCENDING) // Order by timestamp in descending order
-                .get()
-                .addOnSuccessListener { querySnapshot: QuerySnapshot ->
+                .orderBy("timestamp", Query.Direction.DESCENDING)
+        } // Order by timestamp in descending order
+
+        // Execute the query
+        if (query != null) {
+            query.get()
+                .addOnSuccessListener { querySnapshot ->
                     val linearLayout = findViewById<LinearLayout>(R.id.linearlayout1)
-                    linearLayout.removeAllViews()
 
-                    for (document in querySnapshot.documents) {
-                        // Retrieve the "products" array from the document
-                        val products = document.get("products") as List<Map<String, Any>>
+                    removeAllViewsExceptFirst(linearLayout)
+                    if (querySnapshot.isEmpty) {
+                        placeholderTextView.visibility = View.VISIBLE
 
-                        // Iterate through the products
-                        for (product in products) {
-                            val productName = product["productName"] as String
-                            val price = product["price"] as Double
-                            val quantity = product["quantity"] as Long
+                    } else {
+                        placeholderTextView.visibility = View.GONE
+                    }
 
-                            // Check if the consignorID matches one of the document IDs
-                            if (documentIds.contains(consignorID)) {
-                                // Calculate the total cost for this product and accumulate it
-                                val productTotal = price * quantity
-                                totalCost += productTotal
+                    for (document in querySnapshot) {
+                        // Access the "products" array from the document
+                        val products = document.get("products") as? List<Map<String, Any>>
+                        // Check if products is not null and is a list
+
+                        if (products != null) {
+                            // Iterate through the products
+                            for (product in products) {
+                                // Access data for each product
+                                val productName = product["productName"] as? String
+                                val quantity = product["quantity"] as? Long
+                                val price = product["price"] as? Double
+
+                                val productAmount = (price ?: 0.0) * (quantity ?: 0)
+
+                                totalItemSold += quantity?.toInt() ?: 0
+                                totalAmountSold += productAmount
 
                                 // Create a TextView using LayoutInflater
                                 val inflater = LayoutInflater.from(this)
-                                val customComponent = inflater.inflate(R.layout.consignor_product_items, null, false)
+                                val customComponent = inflater.inflate(
+                                    R.layout.consignor_product_items,
+                                    linearlayoutTemplate,
+                                    false
+                                )
 
-                                val prdname = customComponent.findViewById<TextView>(R.id.productNameTextView)
+                                val prdname =
+                                    customComponent.findViewById<TextView>(R.id.productNameTextView)
                                 val sold = customComponent.findViewById<TextView>(R.id.soldTextView)
-                                val amount = customComponent.findViewById<TextView>(R.id.totalAmountTextView)
+                                val amount =
+                                    customComponent.findViewById<TextView>(R.id.totalAmountTextView)
 
                                 // Set the text for the TextView using productName instead of productID
                                 prdname.text = productName
                                 sold.text = quantity.toString()
-                                amount.text = price.toString()
+                                amount.text = productAmount.toString()
 
                                 // Add the TextView to the LinearLayout
-                                linearLayout.addView(customComponent)
+                                linearlayoutTemplate.addView(customComponent)
+
+                                val totalSoldTextView =
+                                    findViewById<TextView>(R.id.totalSoldTextView)
+                                totalSoldTextView.text = totalItemSold.toString()
+
+                                val totalAmountTextView =
+                                    findViewById<TextView>(R.id.addedAmountTextView)
+                                totalAmountTextView.text = totalAmountSold.toString()
+
                             }
                         }
                     }
-
-                    // Now, 'totalCost' contains the sum of total costs for the matched products
-                    val tv_total_sold = findViewById<TextView>(R.id.totalAmountTextView)
-                    println(totalCost)
-                    tv_total_sold.text = "P $totalCost"
+                    // Show a Toast message indicating successful data retrieval
+                    Toast.makeText(
+                        this@ConsignorProductSalesActivity,
+                        "Data retrieved successfully",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
                 .addOnFailureListener { exception ->
-                    // Handle errors here
+                    // Handle failures
+                    Log.e("ConsignorProductSales", "Error getting documents", exception)
+
+                    // Show a Toast message indicating an error
+                    Toast.makeText(
+                        this@ConsignorProductSalesActivity,
+                        "Error getting data: ${exception.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
         }
     }
-
-
-
-
-    // ... rest of your code ...
 
     fun removeAllViewsExceptFirst(layout: ViewGroup) {
         // Ensure that the layout has at least one child view
@@ -299,4 +334,6 @@ class ConsignorProductSalesActivity : AppCompatActivity() {
         calendar.set(Calendar.MILLISECOND, 999)
         return calendar.time
     }
+
+
 }

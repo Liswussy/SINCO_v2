@@ -332,7 +332,10 @@
 
 
 
+
+
         </LinearLayout>
+
 
 
 
@@ -341,4 +344,16 @@
 
 
 
+    <TextView
+        android:id="@+id/hiddenTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hello Wollrd"
+        android:textSize="24sp"
+        android:textColor="@color/white_primary"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

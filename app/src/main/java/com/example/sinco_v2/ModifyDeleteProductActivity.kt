@@ -317,6 +317,8 @@ class ModifyDeleteProductActivity : AppCompatActivity() {
             val price = findViewById<EditText>(R.id.input_price).text.toString().toDouble()
             val supplierID = supplierListID[supplierList.indexOf(supplier)]
 
+
+
             CoroutineScope(IO).launch {
                 var firebaseImageSrc = ""
                 if (::imageSrcURI.isInitialized) {
@@ -324,6 +326,20 @@ class ModifyDeleteProductActivity : AppCompatActivity() {
                 } else if (::imageSrcBitmap.isInitialized) {
                     firebaseImageSrc = async { uploadBitmapToFirebase(imageSrcBitmap) }.await()
                 }
+
+
+                val textView = findViewById<TextView>(R.id.hiddenTextView)
+
+
+
+// Get the text from the TextView
+                val textFromTextView = textView.text.toString()
+
+// Convert the text to an Int
+                val number: Int = textFromTextView.toIntOrNull() ?: 0
+
+// Now, 'number' contains the integer value
+
 
                 // Update product data
                 val docID = intent.getStringExtra("docID")
@@ -359,30 +375,53 @@ class ModifyDeleteProductActivity : AppCompatActivity() {
 
                             // Update supplier data
                             val supplierID = supplierListID[findViewById<Spinner>(R.id.sp_supplier).selectedItemPosition]
+
+                            var supplierRemove = supplierListID[number]
+
+
                             val supplierRef = db.collection("suppliers").document(supplierID)
+
+                            val supplierRemoveRef = db.collection("suppliers").document(supplierRemove)
 
                             val oldProduct = mapOf(
                                "id" to docID,
                                 "name" to prdname
                             )
-                            println(oldProduct)
-                            val updatedProduct = mapOf(
-                                "id" to docID,
-                                "name" to prdname
-                            )
-                            // Update the product field in the supplier collection
-                            supplierRef.update(
-                                "products", FieldValue.arrayRemove(oldProduct),
-                                "products", FieldValue.arrayUnion(updatedProduct),
-                                "lastUpdated", System.currentTimeMillis()
-                            )
-                                .addOnSuccessListener {
-                                    Toast.makeText(
-                                        this@ModifyDeleteProductActivity,
-                                        "Successfully updated supplier",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
+                            //println(oldProduct)
+                            val removeMap = mapOf("products" to FieldValue.arrayRemove(oldProduct))
+
+
+                            supplierRemoveRef.update(
+                                removeMap
+                            ).addOnSuccessListener {
+                                val updateMap = mutableMapOf<String, Any>()
+                                val updatedProduct = mapOf(
+                                    "id" to docID,
+                                    "name" to prdname
+                                )
+                                updateMap["products"] = FieldValue.arrayUnion(updatedProduct)
+                                updateMap["lastUpdated"] = System.currentTimeMillis()
+
+                                supplierRef.update(
+                                    updateMap
+
+                                )
+                                    .addOnSuccessListener {
+                                        Toast.makeText(
+                                            this@ModifyDeleteProductActivity,
+                                            "Successfully updated supplier",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                    .addOnFailureListener{ e ->
+                                        Toast.makeText(
+                                            this@ModifyDeleteProductActivity,
+                                            "Error updating supplier: ${e.message}",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        Log.e("FirestoreUpdate", "Error updating supplier", e)
+                                    }
+                            }
                                 .addOnFailureListener { e ->
                                     Toast.makeText(
                                         this@ModifyDeleteProductActivity,
@@ -537,6 +576,7 @@ class ModifyDeleteProductActivity : AppCompatActivity() {
                 supplierSpinner.adapter = supplierAdapter
 
                 // Retrieve the selected supplier from the Firestore and set it in the spinner
+
                 val docID = intent.getStringExtra("docID")
                 if (docID != null) {
                     val docRef = db.collection("products").document(docID)
@@ -546,8 +586,13 @@ class ModifyDeleteProductActivity : AppCompatActivity() {
                                 val selectedSupplier =
                                     document.getString("supp") // Use "supp" instead of "supplier"
                                 val selectedIndex = supplierList.indexOf(selectedSupplier)
+
+                                val hiddenTextView = findViewById<TextView>(R.id.hiddenTextView)
+                                hiddenTextView.text = selectedIndex.toString()
+
                                 if (selectedIndex != -1) {
                                     supplierSpinner.setSelection(selectedIndex)
+
                                 }
                             }
                         }

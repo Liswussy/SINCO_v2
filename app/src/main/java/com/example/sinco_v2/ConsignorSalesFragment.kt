@@ -15,8 +15,10 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.Firebase
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.firestore
 
 class ConsignorSalesFragment : Fragment() {
     private lateinit var linearLayout1: LinearLayout
@@ -33,7 +35,7 @@ class ConsignorSalesFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_consignor_sales, container, false)
         linearLayout1 = view.findViewById(R.id.linearlayout1)
 
-        showConsignorName()
+        showSuppliers()
         searchInputEditText = view.findViewById(R.id.searchEditText)
 
         val searchInputLayout = view.findViewById<TextInputLayout>(R.id.searchInputLayout)
@@ -41,7 +43,7 @@ class ConsignorSalesFragment : Fragment() {
             // Clear the text and show all products
             searchInputEditText.text = null
             linearLayout1.removeAllViews() // Clear existing views
-            showConsignorName()
+            //showConsignorName()
             // Hide the keyboard
             hideKeyboard()
         }
@@ -58,54 +60,34 @@ class ConsignorSalesFragment : Fragment() {
         startActivity(intent)
     }
 
-    private fun showConsignorName() {
-        val db = FirebaseFirestore.getInstance()
-        val collectionReference = db.collection("products")
+    private fun showSuppliers() {
 
-        val supplierMap = mutableMapOf<String, MutableList<String>>()
-
-        collectionReference.get()
+        val db = Firebase.firestore
+        db.collection("suppliers")
+            .get()
             .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    val consignorName = document.getString("supp")
-
-                    if (consignorName != null) {
-                        if (!supplierMap.containsKey(consignorName)) {
-                            supplierMap[consignorName] = mutableListOf()
-                        }
-
-                        supplierMap[consignorName]?.add(document.id)
-                    }
-                }
-
-                // Filter unique consignor names
-                val uniqueConsignorNames = supplierMap.keys.toList()
-
-                for (consignorName in uniqueConsignorNames) {
-                    val documentIds = supplierMap[consignorName]!!
+                for (doc in documents) {
+                    val supplierName = doc.getString("name") ?: ""
+                    val supplierID = doc.id
 
                     val inflater = LayoutInflater.from(requireContext())
-                    val customTextView =
-                        inflater.inflate(R.layout.consignor_items, linearLayout1, false)
+                    val customItemView = inflater.inflate(R.layout. consignor_items, linearLayout1, false)
 
-                    val consignorTextView =
-                        customTextView.findViewById<TextView>(R.id.consignorTextView)
-                    consignorTextView.text = consignorName
+                    val supplierNameTextView = customItemView.findViewById<TextView>(R.id.consignorTextView)
+                    supplierNameTextView.text = supplierName
 
-                    customTextView.setOnClickListener {
-                        redirectToActivityWithID(
-                            ConsignorProductSalesActivity::class.java,
-                            documentIds[0] // Assuming you want to pass the first document ID
-                        )
+                    val linearlayout2 = customItemView.findViewById<LinearLayout>(R.id.linearlayout2)
+                    linearlayout2.setOnClickListener{
+                        redirectToActivityWithID(ConsignorProductSalesActivity::class.java, supplierID)
                     }
-                    linearLayout1.addView(customTextView)
-                }
 
-                // Update lastDocument for the next batch
+                    linearLayout1.addView(customItemView)
+                }
             }
             .addOnFailureListener { exception ->
-                // Handle errors here
+
             }
+
     }
 
 
